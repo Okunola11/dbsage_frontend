@@ -1,0 +1,11 @@
+{
+  "navbar": {
+    "login": "Iniciar sesión",
+    "register": "Comenzar"
+  },
+  "navLinks": {
+    "home": "Inicio",
+    "pricing": "Precios",
+    "careers": "Carreras"
+  }
+}
