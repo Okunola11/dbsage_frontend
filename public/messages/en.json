@@ -1,0 +1,11 @@
+{
+  "navbar": {
+    "login": "Log in",
+    "register": "Get started"
+  },
+  "navLinks": {
+    "home": "Home",
+    "pricing": "Pricing",
+    "careers": "Careers"
+  }
+}
