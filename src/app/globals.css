@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 @layer utilities {
   .text-balance {
@@ -28,52 +11,98 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --background: 210 100% 98%;
+    --foreground: 210 40% 11%;
+
+    --card: 255 255 255;
+    --card-foreground: 210 40% 11%;
+
+    --popover: 255 255 255;
+    --popover-foreground: 210 40% 11%;
+
+    --default: 222 47% 11%;
+    --default-foreground: 0 0% 100%;
+
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 100% 100%;
+
+    --secondary: 210 80% 60%;
+    --secondary-foreground: 210 40% 11%;
+
+    /* --foreground: 222.2 84% 4.9%; */
+    /* --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%; */
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
+
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
+
     --destructive: 0 84.2% 60.2%;
+    --destructive-hover: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
+
+    --subtle: 210 40% 96%;
+    --subtle-hover: 214 32% 91%;
+    --subtle-foreground: 222 47% 11%;
+
+    --loading: 222 47% 11%;
+    --loading-hover: 215 25% 27%;
+    --loading-foreground: 0 0% 100%;
+
+    --outline: 0 0% 100%;
+    --outline-hover: 210 40% 96%;
+    --outline-foreground: 222 47% 11%;
+
     --border: 214.3 31.8% 91.4%;
+
     --input: 214.3 31.8% 91.4%;
+
     --ring: 222.2 84% 4.9%;
+
+    --neutral-dark-1: 0 0% 32%;
+    --neutral-dark-2: 0 0% 4%
+
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
     --radius: 0.5rem;
   }
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 222.2 84% 0%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+
+    --card: 222.2, 84%, 4.9%;
+    --card-foreground: 210, 40%, 98%;
+
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 100% 100%;
+
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
+
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 217.2 32.6% 17.5%;
+
     --input: 217.2 32.6% 17.5%;
+
     --ring: 212.7 26.8% 83.9%;
+
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -82,6 +111,16 @@ body {
   }
 }
 
+/* #nprogress .bar {
+  background: linear-gradient(90deg, #fff0bf, #f85318) !important;
+  box-shadow: 10px 0px 20px rgba(255, 240, 191, 0.641) !important;
+  position: fixed;
+  z-index: 99999999 !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px !important;
+}
 @layer base {
   * {
     @apply border-border;
@@ -89,4 +128,92 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+} */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.spinner_V8m1 {
+  transform-origin: center;
+  animation: spinner_zKoa 2s linear infinite;
+}
+
+.spinner_V8m1 circle {
+  stroke-linecap: round; 
+  animation: spinner_YpZS 1.5s ease-in-out infinite;
+}
+
+@keyframes spinner_zKoa {
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes spinner_YpZS {
+  0% {
+    stroke-dasharray: 0 150;
+    stroke-dashoffset: 0;
+  }
+  47.5% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -16;
+  }
+  95%, 100% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -59;
+  }
+}
+
+.show_scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+.show_scrollbar ::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+}
+.hide_scrollbar::-webkit-scrollbar {
+  height: 0.1px;
+  width: 0.1px;
+}
+/* Custom Scrollbar Styling */
+/* For Webkit Browsers */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::selection {
+  @apply bg-primary;
+  color: white;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary;
+  border: 4px solid transparent;
+  border-radius: 10px;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+  background: hsla(0, 0%, 0%, 0.06); /* Color of the track */
+  border-radius: 10px; /* Rounded corners of the track */
+}
+
+/* For Firefox */
+.html {
+  @apply bg-primary;
+  scrollbar-width: thin; /* Options are 'auto', 'thin', 'none' */
+}
+
+/* For Internet Explorer and Legacy Edge */
+body {
+  -ms-overflow-style: scrollbar; /* Standard scrollbar */
 }
