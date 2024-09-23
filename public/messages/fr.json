@@ -47,5 +47,11 @@
     "resendCode": "Vous n'avez pas reçu le code ? renvoyez",
     "dataProcessing": "Nous traiterons vos données comme indiqué dans nos Conditions d'utilisation, Politique de confidentialité et Accord de traitement des données",
     "alreadyHaveAccount": "Vous avez déjà un compte ? Connexion"
+  },
+  "hero": {
+    "headline": "DBSage",
+    "subHeadline": "Votre assistant SQL vous attend.",
+    "description": "Transformez vos données avec DBSage. Connectez-vous sans effort à votre base de données SQL et générez des requêtes précises en langage naturel. Découvrez des informations commerciales précieuses adaptées à vos besoins, toutes optimisées par une IA avancée.",
+    "cta": "Commencer"
   }
 }
