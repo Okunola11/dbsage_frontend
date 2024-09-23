@@ -1,4 +1,4 @@
-import { Session, NextAuthOptions } from "next-auth";
+import { Session, NextAuthConfig } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
@@ -147,4 +147,4 @@ export default {
     signIn: "/login",
     error: "/error",
   },
-} satisfies NextAuthOptions;
+} satisfies NextAuthConfig;
