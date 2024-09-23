@@ -5,7 +5,6 @@ import { Locale } from "@/utils/config";
 import { setUserLocale } from "@/utils/locale";
 import { Language, languages } from "@/utils/language";
 import FlagButton from "./flag-button";
-import { Flag, Flashlight } from "lucide-react";
 
 interface Props {
   className: string;
