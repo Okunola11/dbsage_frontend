@@ -15,9 +15,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Translator } from "@/types";
 
 type Props = {
-  t: any;
+  t: Translator;
   form: UseFormReturn<
     {
       first_name: string;
@@ -25,6 +26,7 @@ type Props = {
       email: string;
       password: string;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any,
     undefined
   >;
