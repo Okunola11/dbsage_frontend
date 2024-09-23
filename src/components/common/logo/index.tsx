@@ -16,7 +16,7 @@ const Logo = () => {
           height={48}
         />
         <div
-          className={`${lora.className} text-2xl font-[600] text-[#0A0A0A] dark:text-foreground`}
+          className={`${lora.className} text-2xl font-[600] text-foreground`}
         >
           DBSage
         </div>
