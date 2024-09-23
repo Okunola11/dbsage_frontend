@@ -9,6 +9,7 @@ import LoadingSpinner from "@/components/miscellaneous/loadingSpinner";
 import CustomButton from "@/components/common/button/commonButton";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/common/input";
+import { Translator } from "@/types";
 import {
   Form,
   FormControl,
@@ -18,14 +19,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-type Props = {
-  t: any;
+type FormLoginProps = {
+  t: Translator;
   form: UseFormReturn<
     {
       email: string;
       password: string;
       rememberMe?: boolean | undefined;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any,
     undefined
   >;
@@ -42,7 +44,7 @@ const FormLogin = ({
   onSubmit,
   showPassword,
   togglePasswordVisibility,
-}: Props) => {
+}: FormLoginProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
