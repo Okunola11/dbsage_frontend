@@ -39,3 +39,22 @@ export interface ApiResponse {
   message: string;
   data?: unknown;
 }
+
+export type Translator = {
+  <TargetKey>(
+    key: TargetKey,
+    values?: TranslationValues,
+    formats?: Partial<Formats>
+  ): string;
+  rich(
+    TargetKey: unknown,
+    values?: RichTranslationValues,
+    formats?: Partial<Formats>
+  ): string | ReactElement | ReactNodeArray;
+  markup(
+    TargetKey: unknown,
+    values?: MarkupTranslationValues,
+    formats?: Partial<Formats>
+  ): string;
+  raw(TargetKey: unknown): unknown;
+};
