@@ -1,4 +1,3 @@
-import { Session, type DefaultSession } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { User } from "next-auth";
 
