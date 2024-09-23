@@ -1,7 +1,11 @@
 import Link from "next/link";
-import { Translation } from "../../login/_components/googleLogin";
+import { Translator } from "@/types";
 
-const HasAccount = ({ t }: Translation) => {
+type Props = {
+  t: Translator;
+};
+
+const HasAccount = ({ t }: Props) => {
   return (
     <p className="font-inter text-neutralColor-dark-1 mt-5 text-center text-sm font-normal leading-[15.6px]">
       {t("alreadyHaveAccount")}{" "}
