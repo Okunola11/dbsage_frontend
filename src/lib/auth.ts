@@ -1,6 +1,14 @@
 import { DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
+import authConfig from "@/config/auth.config";
 
 import { User } from "@/types";
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  unstable_update,
+} = NextAuth({ ...authConfig });
 
 declare module "next-auth" {
   interface Session {
