@@ -47,5 +47,11 @@
     "resendCode": "Didn't receive the code? resend",
     "dataProcessing": "We would process your data as set forth in our Terms of Use, Privacy Policy and Data Processing Agreement",
     "alreadyHaveAccount": "Already Have An Account?"
+  },
+  "hero": {
+    "headline": "DBSage",
+    "subHeadline": "Your SQL Assistant Awaits.",
+    "description": "Transform your data with DBSage. Effortlessly connect to your SQL database and generate precise queries using natural language. Discover valuable business insights tailored for your needs, all powered by advanced AI.",
+    "cta": "Get started"
   }
 }
