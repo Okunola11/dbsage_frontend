@@ -1,3 +1,7 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "plugins": ["unicorn"],
+  "rules": {
+    "unicorn/no-null": "error" // or "warn" depending on your preference
+  }
 }
