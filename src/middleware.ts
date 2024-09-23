@@ -1,5 +1,5 @@
-import { getSession } from "next-auth/react";
 import { NextResponse, NextRequest } from "next/server";
+import { auth } from "./lib/auth";
 
 import {
   authRoutes,
@@ -12,7 +12,7 @@ const NEXT_PUBLIC_ROOT_DOMAIN = "waas.ai.vercel.app";
 
 export default async function middleware(request: NextRequest) {
   const { nextUrl } = request;
-  const session = await getSession();
+  const session = await auth();
 
   const isLoggedIn = session !== null;
   const isSuperAdmin = session?.user?.is_superadmin === true;
