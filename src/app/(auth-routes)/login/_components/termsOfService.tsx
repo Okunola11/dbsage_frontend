@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
 
-import { Translation } from "./googleLogin";
+import { LoginProps } from "./googleLogin";
 
-const TermsOfService = ({ t }: Translation) => {
+const TermsOfService: React.FC<LoginProps> = ({ t }) => {
   return (
     <p className="mt-2 text-center text-xs text-gray-500">
       <ShieldCheck className="mr-1 hidden h-4 w-4 text-gray-400 sm:inline-block" />
