@@ -12,7 +12,7 @@ docker-run-all:
 		--name sage-dev \
 		--network sage-network \
 		--env-file=${ENV_PATH} \
-		--mount type=bind,src=$(pwd),dst=/app \
+		--mount type=bind,src=./,dst=/app/ \
 		-p 3000:3000 \
 		--restart unless-stopped \
 		sage-dev:0
