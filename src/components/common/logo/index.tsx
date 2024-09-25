@@ -10,7 +10,7 @@ const Logo = () => {
         href={"/"}
       >
         <Image
-          src={"/images/logo-small.svg"}
+          src={"/images/logo-big.svg"}
           alt="DBSage"
           width={48}
           height={48}
@@ -26,7 +26,7 @@ const Logo = () => {
         href={"/"}
       >
         <Image
-          src={"/images/logo-big.svg"}
+          src={"/images/logo-small.svg"}
           alt="DBSage"
           width={32}
           height={32}
