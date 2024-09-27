@@ -86,7 +86,7 @@ const Navbar = () => {
             </Link>
             <Link
               href="/register"
-              className="grid h-[44px] place-items-center whitespace-nowrap rounded-md border border-primary bg-primary px-4 text-white hover:bg-destructive lg:px-8"
+              className="grid h-[44px] place-items-center whitespace-nowrap rounded-md bg-primary px-4 text-white hover:bg-destructive lg:px-8"
             >
               {t("navbar.register")}
             </Link>
