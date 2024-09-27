@@ -53,5 +53,16 @@
     "subHeadline": "Su asistente SQL le espera.",
     "description": "Transforme sus datos con DBSage. Conéctese sin esfuerzo a su base de datos SQL y genere consultas precisas utilizando lenguaje natural. Descubra valiosos conocimientos empresariales adaptados a sus necesidades, todo ello impulsado por IA avanzada.",
     "cta": "empezar"
+  },
+  "howItWorks": {
+    "title": "como funciona",
+    "subTitle": "DBSage está diseñado para la simplicidad. En tan solo unos pocos pasos podrás empezar a consultar tus datos sin esfuerzo.",
+    "messages": {
+      "1": "Conecte su base de datos SQL usando la URL proporcionada.",
+      "2": "Ingrese su clave API de OpenAI para habilitar la funcionalidad.",
+      "3": "Comience a consultar su base de datos usando lenguaje natural.",
+      "4": "DBSage se encarga del resto, generando la consulta SQL y proporcionando los resultados para su descarga..",
+      "5": "Reciba información útil basada en las tablas de su base de datos relacionadas con su consulta."
+    }
   }
 }
