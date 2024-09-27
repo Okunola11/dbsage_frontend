@@ -64,5 +64,47 @@
       "4": "DBSage s'occupe du reste, générant la requête SQL et fournissant les résultats à télécharger.",
       "5": "Recevez des informations exploitables basées sur les tables de votre base de données liées à votre requête."
     }
+  },
+  "footer": {
+    "boilerplate": "Gabarit",
+    "address": "Détails du logo et adresse",
+    "newsletterSignUp": "Inscrivez-vous à la Newsletter",
+    "subscribe": "S'abonner",
+    "navigation": "Navigation",
+    "support": "Support",
+    "legal": "Légal",
+    "followUs": "Suivez-nous",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsOfUse": "Conditions d'Utilisation",
+    "enterYourEmail": "Entrez votre e-mail",
+    "links": {
+      "navigation": "Navigation",
+      "home": "Accueil",
+      "aboutUs": "À Propos de Nous",
+      "career": "Carrière",
+      "features": "Fonctionnalités",
+      "blog": "Blog",
+      "status": "Statut",
+      "support": "Support",
+      "helpCenter": "Centre d'Aide",
+      "faq": "FAQ",
+      "waitingList": "Liste d'Attente",
+      "pricingExperience": "Expérience Tarifaire",
+      "contactUs": "Contactez-nous",
+      "legal": "Légal",
+      "privacyPolicy": "Politique de Confidentialité",
+      "termsAndConditions": "Conditions Générales"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    },
+    "footerBottom": {
+      "privacyPolicy": "Politique de Confidentialité",
+      "termsOfUse": "Conditions d'Utilisation",
+      "copyright": "2024 Tous Droits Réservés"
+    }
   }
 }
