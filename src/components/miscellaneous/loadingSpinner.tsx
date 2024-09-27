@@ -13,7 +13,7 @@ const LoadingSpinner = forwardRef<SVGSVGElement, SVGProperties>(
   ({ className, ...properties }, reference) => {
     return (
       <svg
-        stroke="fff"
+        stroke="#fff"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
