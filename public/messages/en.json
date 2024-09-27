@@ -55,7 +55,7 @@
     "cta": "Get started"
   },
   "howItWorks": {
-    "title": " How it works",
+    "title": "How it works",
     "subTitle": "DBSage is designed for simplicity. In just a few steps, you can start consulting your data effortlessly.",
     "messages": {
       "1": "Connect your SQL database using the provided URL.",
@@ -63,6 +63,47 @@
       "3": "Start querying your database using natural language.",
       "4": "DBSage takes care of the rest, generating the SQL query and providing the results for download.",
       "5": "Receive actionable insights based on the tables in your database related to your query."
+    }
+  },
+  "footer": {
+    "newsletterSignUp": "Sign Up For Newsletters",
+    "subscribe": "Subscribe",
+    "navigation": "Navigation",
+    "support": "Support",
+    "legal": "Legal",
+    "followUs": "Follow Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use",
+    "enterYourEmail": "Enter your email",
+    "links": {
+      "navigation": "Navigation",
+      "home": "Home",
+      "aboutUs": "About Us",
+      "career": "Career",
+      "features": "Features",
+      "blog": "Blog",
+      "status": "Status",
+      "support": "Support",
+      "helpCenter": "Help Center",
+      "faq": "FAQ",
+      "waitingList": "Waiting List",
+      "pricingExperience": "Pricing Experience",
+      "contactUs": "Contact Us",
+      "legal": "Legal",
+      "privacyPolicy": "Privacy Policy",
+      "termsAndConditions": "Terms and Conditions"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    },
+    "footerBottom": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "copyright": "2024 All Rights Reserved",
+            "companyName": "HNG Boilerplate"
     }
   }
 }
