@@ -64,5 +64,47 @@
       "4": "DBSage se encarga del resto, generando la consulta SQL y proporcionando los resultados para su descarga..",
       "5": "Reciba información útil basada en las tablas de su base de datos relacionadas con su consulta."
     }
+  },
+  "footer": {
+    "boilerplate": "Plantilla",
+    "address": "Detalles del logo y dirección",
+    "newsletterSignUp": "Suscríbete al Boletín",
+    "subscribe": "Suscribirse",
+    "navigation": "Navegación",
+    "support": "Soporte",
+    "legal": "Legal",
+    "followUs": "Síguenos",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfUse": "Términos de Uso",
+    "enterYourEmail": "Introduce tu correo electrónico",
+    "links": {
+      "navigation": "Navegación",
+      "home": "Inicio",
+      "aboutUs": "Sobre Nosotros",
+      "career": "Carrera",
+      "features": "Características",
+      "blog": "Blog",
+      "status": "Estado",
+      "support": "Soporte",
+      "helpCenter": "Centro de Ayuda",
+      "faq": "FAQ",
+      "waitingList": "Lista de Espera",
+      "pricingExperience": "Experiencia de Precios",
+      "contactUs": "Contáctanos",
+      "legal": "Legal",
+      "privacyPolicy": "Política de Privacidad",
+      "termsAndConditions": "Términos y Condiciones"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    },
+    "footerBottom": {
+      "privacyPolicy": "Política de Privacidad",
+      "termsOfUse": "Términos de Uso",
+      "copyright": "2024 Todos los Derechos Reservados"
+    }
   }
 }
