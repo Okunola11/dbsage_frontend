@@ -1,11 +1,11 @@
-import { getSession } from "next-auth/react";
+import { auth } from "@/lib/auth";
 
 export default async function GeneralLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
+  const session = await auth();
 
   if (!session) {
     return;
