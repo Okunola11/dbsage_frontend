@@ -18,7 +18,7 @@ const HowItWorks = () => {
           <DisplayLottie animationData={codingPerson} />
         </div>
         <div className="flex-1">
-          <h3 className="mb-2 md:mb-4 text-4xl md:text-5xl small-spacing md:big-spacing">
+          <h3 className="mb-2 md:mb-4 text-4xl md:text-5xl tracking-[5px] md:tracking-[8px]">
             {t("title")}
           </h3>
           <p className="text-base mb-4 md:mb-10">{t("subTitle")}</p>
