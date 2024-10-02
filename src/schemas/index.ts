@@ -53,3 +53,7 @@ export const PasswordResetSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const PromptSchema = z.object({
+  prompt: z.string().min(1, { message: "Please provide a prompt." }),
+});
