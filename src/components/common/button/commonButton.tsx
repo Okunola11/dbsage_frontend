@@ -3,10 +3,13 @@ import { Plus, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 
 import { Button, ButtonProps } from ".";
+import { cn } from "@/lib/utils";
 
 interface ButtonProperties extends ButtonProps {
   /** Icon to be displayed inside the button */
   icon?: ReactNode;
+  /** Classes to be applied to the icon*/
+  iconClassName?: string;
   /** Indicates if the button is in a loading state */
   isLoading?: boolean;
   /** Indicates if the button is icon only */
@@ -37,10 +40,13 @@ const CustomButton: FC<ButtonProperties> = ({
   ariaLabel,
   href,
   className,
+  iconClassName,
   onClick,
 }) => {
   const modifiedIcon = icon ? (
-    cloneElement(icon as ReactElement, { className: "w-[1rem] h-[1rem]" })
+    cloneElement(icon as ReactElement, {
+      className: cn("w-[1rem] h-[1rem]", iconClassName),
+    })
   ) : (
     <Plus className="w-[1rem] h-[1rem]" />
   );
