@@ -57,3 +57,15 @@ export const PasswordResetSchema = z
 export const PromptSchema = z.object({
   prompt: z.string().min(1, { message: "Please provide a prompt." }),
 });
+
+export const dbConfigSchema = z.object({
+  host: z.string().min(1, { message: "Host or socket is required." }),
+  port: z
+    .number()
+    .int()
+    .min(1, { message: "Port number is required" })
+    .max(65535),
+  username: z.string().min(1, { message: "Username is required." }),
+  password: z.string().min(1, { message: "Password is required." }),
+  database: z.string().min(1, { message: "Database name is required." }),
+});
