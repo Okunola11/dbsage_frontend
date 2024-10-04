@@ -106,5 +106,14 @@
       "termsOfUse": "Conditions d'Utilisation",
       "copyright": "2024 Tous Droits Réservés"
     }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "intro": {
+      "hi": "Salut",
+      "welcome": "bienvenu",
+      "likeToDo": "Qu'aimeriez-vous faire ?"
+    },
+    "talkWithSage": "Parlez à votre base de données avec DBSage."
   }
 }
