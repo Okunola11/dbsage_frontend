@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BsDatabaseFillLock } from "react-icons/bs";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import * as z from "zod";
 
 import CustomButton from "../button/commonButton";
@@ -27,6 +28,8 @@ import {
 } from "@/components/ui/form";
 
 const DatabaseDialog = () => {
+  const t = useTranslations("dbSage.database");
+
   const form = useForm<z.infer<typeof dbConfigSchema>>({
     resolver: zodResolver(dbConfigSchema),
     defaultValues: {
@@ -57,19 +60,16 @@ const DatabaseDialog = () => {
           iconClassName="w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
           //   onClick={() => setIsOpen(true)}
         >
-          Connect
+          {t("connect")}
         </CustomButton>
       </DialogTrigger>
 
       <DialogContent className="max-w-2xl overflow-y-auto max-h-screen md:max-h-[90%]">
         <DialogHeader>
           <DialogTitle className="flex gap-2 items-center">
-            <BsDatabaseFillLock className="w-7 h-7" /> Connect your database
+            <BsDatabaseFillLock className="w-7 h-7" /> {t("title")}
           </DialogTitle>
-          <DialogDescription>
-            Connect your SQL database here. A readonly test database has been
-            connected for testing, change the details to use your own database.
-          </DialogDescription>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         <div className="grid">
@@ -84,11 +84,11 @@ const DatabaseDialog = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-neutral-dark-2">
-                      Host/Socket
+                      {t("host.label")}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="database host"
+                        placeholder={t("host.placeholder")}
                         {...field}
                         className={cn(
                           "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
@@ -106,10 +106,12 @@ const DatabaseDialog = () => {
                 name="port"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-neutral-dark-2">Port</FormLabel>
+                    <FormLabel className="text-neutral-dark-2">
+                      {t("port.label")}
+                    </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="database port"
+                        placeholder={t("port.placeholder")}
                         {...field}
                         className={cn(
                           "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
@@ -128,11 +130,11 @@ const DatabaseDialog = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-neutral-dark-2">
-                      Username
+                      {t("username.label")}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="username"
+                        placeholder={t("username.placeholder")}
                         {...field}
                         className={cn(
                           "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
@@ -151,12 +153,12 @@ const DatabaseDialog = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-neutral-dark-2">
-                      Password
+                      {t("password.label")}
                     </FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="password"
+                        placeholder={t("password.placeholder")}
                         {...field}
                         className={cn(
                           "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
@@ -175,11 +177,11 @@ const DatabaseDialog = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-neutral-dark-2">
-                      Database
+                      {t("database.label")}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="database"
+                        placeholder={t("database.placeholder")}
                         {...field}
                         className={cn(
                           "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
@@ -208,7 +210,7 @@ const DatabaseDialog = () => {
           ) : (
             <span>{t("loginButton")}</span>
           )} */}
-                  Logout
+                  {t("logout")}
                 </CustomButton>
 
                 <CustomButton
@@ -226,7 +228,7 @@ const DatabaseDialog = () => {
                 ) : (
                   <span>{t("loginButton")}</span>
                 )} */}
-                  Connect
+                  {t("connect")}
                 </CustomButton>
               </div>
             </form>

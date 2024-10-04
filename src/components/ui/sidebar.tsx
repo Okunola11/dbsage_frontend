@@ -4,6 +4,7 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import { TbTableShortcut } from "react-icons/tb";
+import { useTranslations } from "next-intl";
 
 import CustomButton from "../common/button/commonButton";
 
@@ -86,6 +87,8 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar();
+  const t = useTranslations("dbSage.dashboard");
+
   return (
     <>
       <motion.div
@@ -109,7 +112,7 @@ export const DesktopSidebar = ({
             className="text-xs p-2 shadow-sm mb-2 shadow-primary/90 min-w-[120px] hidden md:flex"
             onClick={() => setOpen(!open)}
           >
-            Tables
+            {t("tables")}
           </CustomButton>
           {children}
         </>

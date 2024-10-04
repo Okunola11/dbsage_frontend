@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import * as z from "zod";
 
 import { Input } from "@/components/common/input";
@@ -28,6 +29,7 @@ type Query = {
 const Sage = () => {
   const [queries, setQueries] = useState<Query[]>([]);
   const [matchingTables, setMatchingTables] = useState<string[]>([]);
+  const t = useTranslations("dbSage.dashboard");
 
   const tableNames = ["users", "products", "orders", "customers", "inventory"];
 
@@ -109,7 +111,7 @@ const Sage = () => {
                     {/* <FormLabel className="text-neutral-dark-2">Prompt</FormLabel> */}
                     <FormControl>
                       <Input
-                        placeholder="Type your query..."
+                        placeholder={t("promptPlaceholder")}
                         {...field}
                         className="focus:outline-none border-primary border-t-0 border-x-0 transition duration-150 ease-in-out text-foreground focus-visible:ring-transparent focus-visible:border-b-2"
                       />
