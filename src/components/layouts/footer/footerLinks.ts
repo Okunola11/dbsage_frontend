@@ -1,31 +1,30 @@
 import {
-  Copyright,
-  Instagram,
-  Linkedin,
-  XIcon,
-  Youtube,
-  Github,
-} from "lucide-react";
+  FaXTwitter,
+  FaGithub,
+  FaLinkedin,
+  FaYoutube,
+  FaInstagram,
+} from "react-icons/fa6";
 
 export const socialLinks = [
   {
-    icon: XIcon,
+    icon: FaXTwitter,
     link: "https://twitter.com/AbdulAyo4",
   },
   {
-    icon: Youtube,
+    icon: FaYoutube,
     link: "https://youtube.com",
   },
   {
-    icon: Instagram,
+    icon: FaInstagram,
     link: "https://instagram.com",
   },
   {
-    icon: Linkedin,
+    icon: FaLinkedin,
     link: "https://linkedin.com/in/waas",
   },
   {
-    icon: Github,
+    icon: FaGithub,
     link: " https://github.com/okunola11",
   },
 ];
