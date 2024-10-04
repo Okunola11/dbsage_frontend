@@ -103,7 +103,16 @@
       "privacyPolicy": "Privacy Policy",
       "termsOfUse": "Terms of Use",
       "copyright": "2024 All Rights Reserved",
-            "companyName": "HNG Boilerplate"
+      "companyName": "HNG Boilerplate"
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "intro": {
+      "hi": "Hi",
+      "welcome": "welcome",
+      "likeToDo": "What would you like to do?"
+    },
+    "talkWithSage": "Talk to your database with DBSage."
   }
 }
