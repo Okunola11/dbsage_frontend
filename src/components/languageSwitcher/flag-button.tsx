@@ -10,7 +10,7 @@ interface Props {
 
 const FlagButton = ({ selectedLanguage, flagPath, onClick }: Props) => {
   return (
-    <Button variant={"ghost"} className="px-1 md:p-6" onClick={onClick}>
+    <Button variant={"ghost"} className="px-1 md:p-5" onClick={onClick}>
       <Image
         src={flagPath}
         alt=""
