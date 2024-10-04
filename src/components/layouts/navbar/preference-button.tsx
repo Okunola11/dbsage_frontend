@@ -21,7 +21,7 @@ export default function PreferenceButton() {
     <Button
       variant={"ghost"}
       size={"icon"}
-      className="dark:text-gray-200"
+      className="dark:text-gray-200 min-w-10"
       onClick={toggleDarkMode}
     >
       {isDarkMode ? (
