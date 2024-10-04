@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 import Navbar from "@/components/layouts/navbar";
@@ -8,6 +9,7 @@ import { poppins } from "@/app/fonts/fonts";
 
 export default async function DashboardTools() {
   const { data: session } = useSession();
+  const t = useTranslations("dashboard");
 
   return (
     <>
@@ -15,16 +17,16 @@ export default async function DashboardTools() {
       <div className="max-w-[80%] mx-auto p-4">
         <div className="text-center">
           <p className="bg-subtle text-black inline-block px-4 py-2 mb-6 rounded-md text-sm md:text-base">
-            Dashboard
+            {t("title")}
           </p>
           <h2 className="text-3xl md:text-5xl font-bold leading-none tracking-tight mb-6">
-            Hi,{" "}
+            {t("intro.hi")},{" "}
             <span className={`${poppins.className} uppercase text-primary`}>
               {session?.user.last_name}
             </span>{" "}
-            welcome.
+            {t("intro.welcome")}.
           </h2>
-          <p className="text-lg md:text-xl mb-10">What would you like to do?</p>
+          <p className="text-lg md:text-xl mb-10">{t("intro.likeToDo")}</p>
           <div className="relative z-20">
             <div className="hover:bg-neutral-200 hover:dark:bg-slate-800/[0.8] p-2 inline-block rounded-3xl overflow-hidden">
               <Link
@@ -36,7 +38,7 @@ export default async function DashboardTools() {
                     Sage
                   </h4>
                   <p className="mt-8 dark:text-zinc-400 text-zinc-900 tracking-wide leading-relaxed text-sm">
-                    Talk to your database with DBSage.
+                    {t("talkWithSage")}
                   </p>
                 </div>
               </Link>
