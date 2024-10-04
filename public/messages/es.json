@@ -115,5 +115,37 @@
       "likeToDo": "¿Qué te gustaría hacer?"
     },
     "talkWithSage": "Habla con tu base de datos con DBSage."
+  },
+  "dbSage": {
+    "dashboard": {
+      "promptPlaceholder": "Escribe tu consulta...",
+      "tables": "Mesas"
+    },
+    "database": {
+      "title": "Conecta tu base de datos",
+      "description": "Conecte su base de datos SQL aquí. Se ha conectado una base de datos de prueba de solo lectura para realizar pruebas. Cambie los detalles para usar su propia base de datos..",
+      "host": {
+        "label": "Anfitrión/Socket",
+        "placeholder": "host de base de datos"
+      },
+      "port": {
+        "label": "Puerto",
+        "placeholder": "puerto de base de datos"
+      },
+      "username": {
+        "label": "Nombre de usuario",
+        "placeholder": "nombre de usuario"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "contraseña"
+      },
+      "database": {
+        "label": "Base de datos",
+        "placeholder": "base de datos"
+      },
+      "connect": "Conectar",
+      "logout": "Cerrar sesión"
+    }
   }
 }
