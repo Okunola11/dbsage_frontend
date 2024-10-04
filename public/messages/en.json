@@ -114,5 +114,37 @@
       "likeToDo": "What would you like to do?"
     },
     "talkWithSage": "Talk to your database with DBSage."
+  },
+  "dbSage": {
+    "dashboard": {
+      "promptPlaceholder": "Type your query...",
+      "tables": "Tables"
+    },
+    "database": {
+      "title": "Connect your database",
+      "description": "Connect your SQL database here. A readonly test database has been connected for testing, change the details to use your own database.",
+      "host": {
+        "label": "Host/Socket",
+        "placeholder": "database host"
+      },
+      "port": {
+        "label": "Port",
+        "placeholder": "database port"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "password"
+      },
+      "database": {
+        "label": "Database",
+        "placeholder": "database"
+      },
+      "connect": "Connect",
+      "logout": "Logout"
+    }
   }
 }
