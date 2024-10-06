@@ -9,8 +9,8 @@ import { useTranslations } from "next-intl";
 import CustomButton from "../common/button/commonButton";
 
 interface Tables {
-  name: string;
-  tables: string[];
+  table_name: string;
+  columns: string[];
 }
 
 interface SidebarContextProps {
@@ -186,7 +186,7 @@ export const SidebarTable = ({
         onMouseEnter={() => setOPenTables(true)}
         onMouseLeave={() => setOPenTables(false)}
       >
-        {table.name}
+        {table.table_name}
       </div>
       <motion.div
         animate={{
@@ -201,9 +201,9 @@ export const SidebarTable = ({
         onMouseEnter={() => setOPenTables(true)}
         onMouseLeave={() => setOPenTables(false)}
       >
-        {table.tables.map((table, idx) => (
+        {table.columns.map((column, idx) => (
           <li key={idx} className="list-none pl-4 text-xs">
-            {table}
+            {column}
           </li>
         ))}
       </motion.div>
