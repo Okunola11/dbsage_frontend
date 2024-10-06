@@ -6,20 +6,11 @@ import { Sidebar, SidebarBody, SidebarTable } from "@/components/ui/sidebar";
 import { lora } from "@/app/fonts/fonts";
 import { cn } from "@/lib/utils";
 import DatabaseDialog from "@/components/common/dialog/databaseDialog";
+import { useDatabaseContext } from "@/context/databaseContext";
 
 const SettingsSidebar = () => {
   const [open, setOpen] = useState(false);
-
-  const tables = [
-    {
-      name: "Users",
-      tables: ["id", "name", "bio", "created_at"],
-    },
-    {
-      name: "Token",
-      tables: ["user_id", "token_id", "id", "created_at"],
-    },
-  ];
+  const { tables } = useDatabaseContext();
 
   return (
     <>
