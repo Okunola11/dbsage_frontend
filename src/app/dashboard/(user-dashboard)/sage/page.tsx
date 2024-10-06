@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 
 import DatabaseDialog from "@/components/common/dialog/databaseDialog";
+import { useDatabaseContext } from "@/context/databaseContext";
 
 type Query = {
   prompt: string;
@@ -31,7 +32,8 @@ const Sage = () => {
   const [matchingTables, setMatchingTables] = useState<string[]>([]);
   const t = useTranslations("dbSage.dashboard");
 
-  const tableNames = ["users", "products", "orders", "customers", "inventory"];
+  const { tables } = useDatabaseContext();
+  const tableNames = tables.map((table) => table.table_name);
 
   const form = useForm<z.infer<typeof PromptSchema>>({
     resolver: zodResolver(PromptSchema),
