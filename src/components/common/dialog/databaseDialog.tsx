@@ -1,3 +1,6 @@
+"use client";
+
+import { useTransition, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BsDatabaseFillLock } from "react-icons/bs";
 import { useForm } from "react-hook-form";
@@ -7,6 +10,11 @@ import * as z from "zod";
 import CustomButton from "../button/commonButton";
 import { Input } from "../input";
 import { dbConfigSchema } from "@/schemas";
+import { connectDatabase, closeDatabaseConnection } from "@/actions/database";
+import LoadingSpinner from "@/components/miscellaneous/loadingSpinner";
+import { useDatabaseContext } from "@/context/databaseContext";
+import { DatabaseTable } from "@/context/databaseContext";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 import {
@@ -29,6 +37,10 @@ import {
 
 const DatabaseDialog = () => {
   const t = useTranslations("dbSage.database");
+  const [isLoading, startTransition] = useTransition();
+  const [activeAction, setActiveAction] = useState("");
+  const { updateTables, clearTables } = useDatabaseContext();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof dbConfigSchema>>({
     resolver: zodResolver(dbConfigSchema),
@@ -42,12 +54,51 @@ const DatabaseDialog = () => {
   });
 
   const onSubmit = (values: z.infer<typeof dbConfigSchema>) => {
-    const { host, port, username, password, database } = values;
+    setActiveAction("submit");
+    startTransition(async () => {
+      await connectDatabase(values).then(async (data) => {
+        if (data.status_code === 200) {
+          updateTables(data.data as DatabaseTable[]);
 
-    // Submit the connection request to the backend
-
-    return "connection request accepted.";
+          toast({
+            title: "Success",
+            description: data.message,
+          });
+        } else {
+          toast({
+            title: "An error occurred",
+            description: data.message,
+          });
+        }
+      });
+      setActiveAction("");
+    });
   };
+
+  const onLogout = () => {
+    setActiveAction("logout");
+    startTransition(async () => {
+      await closeDatabaseConnection().then(async (data) => {
+        if (data.status_code === 200) {
+          clearTables();
+
+          toast({
+            title: "Success",
+            description: data.message,
+          });
+        } else {
+          toast({
+            title: "An error occurred",
+            description: data.message,
+          });
+        }
+      });
+      setActiveAction("");
+    });
+  };
+
+  const isSubmitting = isLoading && activeAction === "submit";
+  const isLoggingOut = isLoading && activeAction === "logout";
 
   return (
     <Dialog>
@@ -57,8 +108,7 @@ const DatabaseDialog = () => {
           isLeftIconVisible={true}
           variant={"ghost"}
           className="p-2 text-sm md:text-base"
-          iconClassName="w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-          //   onClick={() => setIsOpen(true)}
+          iconClassName="w-[24px] h-[24px] md:w-[30px] md:h-[30px] text-primary"
         >
           {t("connect")}
         </CustomButton>
@@ -200,17 +250,17 @@ const DatabaseDialog = () => {
                   variant="primary"
                   size="default"
                   className="py-3"
-                  // isDisabled={isLoading}
+                  isDisabled={isLoading}
+                  onClick={onLogout}
                 >
-                  {/* {isLoading ? (
-            <span className="flex items-center gap-x-2">
-              <span className="animate-pulse">Logging in...</span>{" "}
-              <LoadingSpinner className="size-4 animate-spin sm:size-5" />
-            </span>
-          ) : (
-            <span>{t("loginButton")}</span>
-          )} */}
-                  {t("logout")}
+                  {isLoggingOut ? (
+                    <span className="flex items-center gap-x-2">
+                      <span className="animate-pulse">Logging out...</span>{" "}
+                      <LoadingSpinner className="size-4 animate-spin sm:size-5" />
+                    </span>
+                  ) : (
+                    <span>{t("logout")}</span>
+                  )}
                 </CustomButton>
 
                 <CustomButton
@@ -218,17 +268,16 @@ const DatabaseDialog = () => {
                   variant="primary"
                   size="default"
                   className="py-3"
-                  // isDisabled={isLoading}
+                  isDisabled={isLoading}
                 >
-                  {/* {isLoading ? (
-                  <span className="flex items-center gap-x-2">
-                    <span className="animate-pulse">Connecting...</span>{" "}
-                    <LoadingSpinner className="size-4 animate-spin sm:size-5" />
-                  </span>
-                ) : (
-                  <span>{t("loginButton")}</span>
-                )} */}
-                  {t("connect")}
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-x-2">
+                      <span className="animate-pulse">Connecting...</span>{" "}
+                      <LoadingSpinner className="size-4 animate-spin sm:size-5" />
+                    </span>
+                  ) : (
+                    <span>{t("connect")}</span>
+                  )}
                 </CustomButton>
               </div>
             </form>
