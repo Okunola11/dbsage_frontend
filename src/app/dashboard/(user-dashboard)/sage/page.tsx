@@ -77,6 +77,7 @@ const Sage = () => {
       },
       ...prevQueries,
     ]);
+    form.reset();
   };
 
   const prompt = form.watch("prompt");
