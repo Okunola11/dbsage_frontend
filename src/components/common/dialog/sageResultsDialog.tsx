@@ -1,7 +1,16 @@
-import { Button } from "../button";
-import CustomButton from "../button/commonButton";
-import { SqlResult, Query } from "@/app/dashboard/(user-dashboard)/sage/page";
+"use client";
 
+import { useCallback } from "react";
+import CustomButton from "../button/commonButton";
+import { Query } from "@/app/dashboard/(user-dashboard)/sage/page";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +26,57 @@ type SqlResultProps = {
 };
 
 const SageResultsDialog = ({ query }: SqlResultProps) => {
+  const parseCsvData = useCallback((csvData: string) => {
+    const lines = csvData.split("\n");
+    const headers = lines[0].split(",");
+    const rows = lines.slice(1).map((line) => {
+      const values = line.split(",");
+      return headers.reduce((obj, header, index) => {
+        obj[header.trim()] = values[index]?.trim() || "";
+        return obj;
+      }, {} as Record<string, string>);
+    });
+    return { headers, rows };
+  }, []);
+
+  const renderTable = useCallback(
+    (csvData: string) => {
+      const { headers, rows } = parseCsvData(csvData);
+      return (
+        <Table className="w-full">
+          <TableHeader>
+            <TableRow>
+              {headers.map((header, index) => (
+                <TableHead
+                  key={index}
+                  className="px-4 py-2 font-bold text-left whitespace-nowrap"
+                >
+                  {header}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row, rowIndex) => (
+              <TableRow key={rowIndex}>
+                {headers.map((header, cellIndex) => (
+                  <TableCell
+                    key={cellIndex}
+                    className="border-b break-words"
+                    style={{ maxWidth: "200px", minWidth: "100px" }}
+                  >
+                    {row[header]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      );
+    },
+    [parseCsvData]
+  );
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,7 +85,7 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
         </CustomButton>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="max-w-2xl lg:max-w-3xl overflow-y-auto max-h-screen md:max-h-[90%]">
         <DialogHeader>
           <DialogTitle>Query Results</DialogTitle>
         </DialogHeader>
@@ -36,10 +96,14 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
           <p>{query.results.status}</p>
           {query.results.status === "success" ? (
             <>
-              <h3 className="font-bold mt-4">SQL:</h3>
-              <p>{query.results.sql}</p>
-              <h3 className="font-bold mt-4">Results:</h3>
-              <pre>{JSON.stringify(query.results.results, null, 2)}</pre>
+              <h3 className="font-bold mt-6">SQL:</h3>
+              <p className="bg-gray-100 dark:bg-slate-900 p-2 rounded overflow-x-auto whitespace-pre-wrap">
+                {query.results.sql}
+              </p>
+              <h3 className="font-bold mt-6">Results:</h3>
+              <div className="overflow-x-auto">
+                {renderTable(query.results.csv_data)}
+              </div>
             </>
           ) : (
             <p className="text-red-500">{query.results.error}</p>
