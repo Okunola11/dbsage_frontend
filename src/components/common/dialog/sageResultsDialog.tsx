@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import CustomButton from "../button/commonButton";
 import { Query } from "@/app/dashboard/(user-dashboard)/sage/page";
+import FormattedSql from "@/app/dashboard/(user-dashboard)/sage/_components/formattedSql";
 import {
   Table,
   TableBody,
@@ -43,7 +44,7 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
     (csvData: string) => {
       const { headers, rows } = parseCsvData(csvData);
       return (
-        <Table className="w-full">
+        <Table>
           <TableHeader>
             <TableRow>
               {headers.map((header, index) => (
@@ -85,29 +86,30 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
         </CustomButton>
       </DialogTrigger>
 
-      <DialogContent className="max-w-2xl lg:max-w-3xl overflow-y-auto max-h-screen md:max-h-[90%]">
-        <DialogHeader>
-          <DialogTitle>Query Results</DialogTitle>
-        </DialogHeader>
-        <div className="mt-4">
-          <h3 className="font-bold">Prompt:</h3>
-          <p>{query.prompt}</p>
-          <h3 className="font-bold mt-4">Status:</h3>
-          <p>{query.results.status}</p>
-          {query.results.status === "success" ? (
-            <>
-              <h3 className="font-bold mt-6">SQL:</h3>
-              <p className="bg-gray-100 dark:bg-slate-900 p-2 rounded overflow-x-auto whitespace-pre-wrap">
-                {query.results.sql}
-              </p>
-              <h3 className="font-bold mt-6">Results:</h3>
-              <div className="overflow-x-auto">
-                {renderTable(query.results.csv_data)}
+      <DialogContent className="max-w-[450px] md:max-w-2xl lg:max-w-3xl overflow-y-auto max-h-screen md:max-h-[90%]">
+        <div className="max-w-[350px] md:max-w-[620px] lg:max-w-[700px]">
+          <DialogHeader>
+            <DialogTitle>Query Results</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <h3 className="font-bold">Prompt:</h3>
+            <p className="text-sm">{query.prompt}</p>
+            <h3 className="font-bold mt-6">Status:</h3>
+            <p>{query.results.status}</p>
+
+            {query.results.status === "success" ? (
+              <div className="w-full">
+                <h3 className="font-bold mt-6 mb-1">SQL:</h3>
+                <FormattedSql sql={query.results.sql} />
+                <h3 className="font-bold mt-6">Results:</h3>
+                <div className="overflow-x-auto">
+                  {renderTable(query.results.csv_data)}
+                </div>
               </div>
-            </>
-          ) : (
-            <p className="text-red-500">{query.results.error}</p>
-          )}
+            ) : (
+              <p className="text-red-500">{query.results.error}</p>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
