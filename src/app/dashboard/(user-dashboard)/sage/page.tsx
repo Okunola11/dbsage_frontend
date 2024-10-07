@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { FaCheck } from "react-icons/fa";
+import { IoAlertCircle } from "react-icons/io5";
 import * as z from "zod";
 
 import { Input } from "@/components/common/input";
@@ -157,6 +159,11 @@ const Sage = () => {
               className="border p-2 rounded-md flex justify-between items-center"
             >
               <div className="flex items-center space-x-2">
+                {query.results.status === "success" ? (
+                  <FaCheck className="text-green-500" />
+                ) : (
+                  <IoAlertCircle className="text-red-500" />
+                )}
                 <span className="truncate max-w-xs">{query.prompt}</span>
               </div>
 
