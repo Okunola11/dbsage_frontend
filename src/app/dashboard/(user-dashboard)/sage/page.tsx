@@ -11,6 +11,7 @@ import * as z from "zod";
 
 import { Input } from "@/components/common/input";
 import { PromptSchema } from "@/schemas";
+import CustomButton from "@/components/common/button/commonButton";
 import {
   Form,
   FormControl,
@@ -30,6 +31,7 @@ export type SqlResult = {
   tableContext: string[];
   sql: string;
   results: object[];
+  csv_data: string;
   error?: string;
 };
 
@@ -67,6 +69,7 @@ const Sage = () => {
         { name: "john", first_name: "doe" },
         { name: "isaac", first_name: "newton" },
       ],
+      csv_data: "csv data",
     };
 
     setQueries((prevQueries) => [
@@ -78,6 +81,19 @@ const Sage = () => {
       ...prevQueries,
     ]);
     form.reset();
+  };
+
+  const handleDownload = (query: Query) => {
+    const blob = new Blob([query.results.csv_data], {
+      type: "text/csv;charset=utf-8;",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "query_results.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const prompt = form.watch("prompt");
@@ -173,14 +189,13 @@ const Sage = () => {
 
                 <SqlResultsDialog sql={query.results.sql} />
 
-                <button
-                  onClick={() => {
-                    /* Download results */
-                  }}
-                  className="text-red-500"
+                <CustomButton
+                  variant="ghost"
+                  className="p-1 m-0 h-full text-red-500"
+                  onClick={() => handleDownload(query)}
                 >
                   Download
-                </button>
+                </CustomButton>
               </div>
             </div>
           ))}
