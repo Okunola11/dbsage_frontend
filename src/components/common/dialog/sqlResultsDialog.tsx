@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { LuClipboardCopy } from "react-icons/lu";
 import CustomButton from "../button/commonButton";
 import { useToast } from "@/hooks/use-toast";
+import FormattedSql from "@/app/dashboard/(user-dashboard)/sage/_components/formattedSql";
 
 import {
   Dialog,
@@ -66,9 +67,14 @@ const SqlResultsDialog = ({ sql }: SqlProps) => {
           <DialogTitle>Generated SQL</DialogTitle>
         </DialogHeader>
         <div className="mt-4">
-          <pre className="p-4 rounded">{sql}</pre>
-          <CustomButton onClick={() => copyToClipboard(sql)}>
-            <LuClipboardCopy className="w-4 h-4 mr-2" />
+          <FormattedSql sql={sql} />
+          <CustomButton
+            icon={<LuClipboardCopy />}
+            isLeftIconVisible={true}
+            className="text-xs p-1 mt-2"
+            variant="ghost"
+            onClick={() => copyToClipboard(sql)}
+          >
             Copy SQL
           </CustomButton>
         </div>
