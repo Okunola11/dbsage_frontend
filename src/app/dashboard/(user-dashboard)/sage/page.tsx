@@ -181,10 +181,12 @@ const Sage = () => {
                 ) : (
                   <IoAlertCircle className="text-red-500" />
                 )}
-                <span className="truncate max-w-xs">{query.prompt}</span>
+                <span className="truncate max-w-24 md:max-w-40 lg:max-w-64 xl:max-w-xs">
+                  {query.prompt}
+                </span>
               </div>
 
-              <div className="space-x-2">
+              <div className="md:space-x-2">
                 <SageResultsDialog query={query} />
 
                 <SqlResultsDialog sql={query.results.sql} />
