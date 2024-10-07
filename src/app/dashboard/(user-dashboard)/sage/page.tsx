@@ -20,11 +20,21 @@ import {
 
 import DatabaseDialog from "@/components/common/dialog/databaseDialog";
 import { useDatabaseContext } from "@/context/databaseContext";
+import SageResultsDialog from "@/components/common/dialog/sageResultsDialog";
+import SqlResultsDialog from "@/components/common/dialog/sqlResultsDialog";
 
-type Query = {
-  prompt: string;
-  results: string;
+export type SqlResult = {
+  status: "success" | "error";
+  tableContext: string[];
   sql: string;
+  results: object[];
+  error?: string;
+};
+
+export type Query = {
+  prompt: string;
+  results: SqlResult;
+  timestamp: number;
 };
 
 const Sage = () => {
@@ -47,9 +57,23 @@ const Sage = () => {
 
     // Submit the prompt to the backend
 
+    const data: SqlResult = {
+      status: "success",
+      tableContext: ["dele", "ali"],
+      sql: "SELECT * from users;",
+      results: [
+        { name: "john", first_name: "doe" },
+        { name: "isaac", first_name: "newton" },
+      ],
+    };
+
     setQueries((prevQueries) => [
+      {
+        prompt,
+        results: data,
+        timestamp: Date.now(),
+      },
       ...prevQueries,
-      { prompt, results: "Sample Results", sql: "SELECT * FROM example" },
     ]);
   };
 
@@ -132,24 +156,15 @@ const Sage = () => {
               key={index}
               className="border p-2 rounded-md flex justify-between items-center"
             >
-              <p>{query.prompt}</p>
+              <div className="flex items-center space-x-2">
+                <span className="truncate max-w-xs">{query.prompt}</span>
+              </div>
+
               <div className="space-x-2">
-                <button
-                  onClick={() => {
-                    /* Show results */
-                  }}
-                  className="text-primary"
-                >
-                  Results
-                </button>
-                <button
-                  onClick={() => {
-                    /* Show SQL */
-                  }}
-                  className="text-green-500"
-                >
-                  SQL
-                </button>
+                <SageResultsDialog query={query} />
+
+                <SqlResultsDialog sql={query.results.sql} />
+
                 <button
                   onClick={() => {
                     /* Download results */
