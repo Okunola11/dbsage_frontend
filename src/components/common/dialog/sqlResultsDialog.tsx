@@ -9,8 +9,6 @@ import FormattedSql from "@/app/dashboard/(user-dashboard)/sage/_components/form
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -59,7 +57,6 @@ const SqlResultsDialog = ({ sql }: SqlProps) => {
         <CustomButton variant="ghost" className="p-1 m-0 h-full text-green-500">
           SQL
         </CustomButton>
-        {/* <button className="text-green-500">SQL</button> */}
       </DialogTrigger>
 
       <DialogContent>
