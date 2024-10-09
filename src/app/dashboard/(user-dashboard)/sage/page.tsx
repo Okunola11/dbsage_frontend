@@ -64,12 +64,13 @@ const Sage = () => {
     const data: SqlResult = {
       status: "success",
       tableContext: ["dele", "ali"],
-      sql: "SELECT * from users;",
+      sql: "SELECT *\n FROM users;",
       results: [
         { name: "john", first_name: "doe" },
         { name: "isaac", first_name: "newton" },
       ],
-      csv_data: "csv data",
+      csv_data:
+        "email,password,first_name,last_name,is_active,is_deleted,id,created_at,updated_at,is_verified,is_superadmin,verified_at,deleted_at\r\nabdwasiuayoadeokunola@gmail.com,,Okunola,Abdulwasiu,False,False,066b7d3c-a0d2-7c4f-8000-6e1d288fc0b8,2024-08-10T20:55:38.036834+00:00,2024-08-10T20:55:38.036834+00:00,False,False,,\r\nwale@example.com,$2b$12$h1kaymJjKGxEltiNWtVqa.09EbUwuDRj8AKk/6t3PSgj81QcmodgC,Wale,Dele,False,False,066be800-2329-74e4-8000-2fdafe43d53b,2024-08-15T22:24:01.869786+00:00,2024-08-15T22:24:01.869786+00:00,False,False,,\r\ntest@gmail.com,$2b$12$A5T/WLEiErLWnbsBCC8JX.KfLzWeNbiFX4rSqTJSaxnvVw9zJe6Wy,Wale,Walex,False,False,066c1060-3ce6-7917-8000-823e5cf6512b,2024-08-17T20:20:19.466868+00:00,2024-08-17T20:20:19.466868+00:00,False,False,,\r\ntestmail2@gmail.com,$2b$12$axT1s7gKB2qR8kaLt8jx6eNV7IjRocouqf4lQ5WhTR6YZG.q7/h0u,Wale,Walex,False,False,066c2406-9536-7435-8000-d4abd1c223fc,2024-08-18T18:41:44.913874+00:00,2024-08-18T18:41:44.913874+00:00,False,False,,\r\n",
     };
 
     setQueries((prevQueries) => [
@@ -186,7 +187,7 @@ const Sage = () => {
                 </span>
               </div>
 
-              <div className="md:space-x-2">
+              <div className="space-x-1 md:space-x-2">
                 <SageResultsDialog query={query} />
 
                 <SqlResultsDialog sql={query.results.sql} />
