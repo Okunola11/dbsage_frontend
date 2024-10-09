@@ -93,7 +93,7 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
           <DialogHeader>
             <DialogTitle>Query Results</DialogTitle>
             <DialogDescription>
-              {query.results.status === "success" ? (
+              {query.success ? (
                 <div className="flex gap-2 items-center">
                   <FaCheck className="text-green-500 w-4 h-4" />{" "}
                   <p>Query successfully completed.</p>
@@ -110,9 +110,9 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
             <h3 className="font-bold">Prompt:</h3>
             <p className="text-sm">{query.prompt}</p>
             <h3 className="font-bold mt-6">Status:</h3>
-            <p>{query.results.status}</p>
+            <p>{query.success}</p>
 
-            {query.results.status === "success" ? (
+            {query.success ? (
               <div className="w-full">
                 <h3 className="font-bold mt-6 mb-1">SQL:</h3>
                 <FormattedSql sql={query.results.sql} />
@@ -122,7 +122,7 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
                 </div>
               </div>
             ) : (
-              <p className="text-red-500">{query.results.error}</p>
+              <p className="text-red-500 text-sm">{query.error}</p>
             )}
           </div>
         </div>
