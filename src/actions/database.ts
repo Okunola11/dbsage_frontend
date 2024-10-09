@@ -14,6 +14,7 @@ export const connectDatabase = async (
 
   if (!validatedFields.success) {
     return {
+      success: false,
       status_code: 401,
       message: "Something went wrong",
     };
@@ -31,6 +32,7 @@ export const connectDatabase = async (
 
     return {
       status: response.data.status,
+      success: response.data.success,
       status_code: response.data.status_code,
       message: response.data.message,
       data: response.data.data,
@@ -38,6 +40,7 @@ export const connectDatabase = async (
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
+        success: error.response.data.success,
         status_code: error.response.status ?? error.response.data.status_code,
         message: error.response.data.message
           ? error.response.data.message
@@ -45,6 +48,7 @@ export const connectDatabase = async (
       };
     } else {
       return {
+        success: false,
         status_code: 500,
         message: "An unexpected error occured.",
       };
@@ -58,6 +62,7 @@ export const closeDatabaseConnection = async (): Promise<ApiResponse> => {
 
     return {
       status: response.data.status,
+      success: response.data.success,
       status_code: response.data.status_code,
       message: response.data.message,
       data: response.data.data,
@@ -65,6 +70,7 @@ export const closeDatabaseConnection = async (): Promise<ApiResponse> => {
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
+        success: error.response.data.success,
         status_code: error.response.status ?? error.response.data.status_code,
         message: error.response.data.message
           ? error.response.data.message
@@ -72,6 +78,7 @@ export const closeDatabaseConnection = async (): Promise<ApiResponse> => {
       };
     } else {
       return {
+        success: false,
         status_code: 500,
         message: "An unexpected error occured.",
       };

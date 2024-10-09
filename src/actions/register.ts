@@ -14,6 +14,7 @@ export const registerUser = async (
 
   if (!validatedFields.success) {
     return {
+      success: false,
       status_code: 401,
       message: "Something went wrong",
     };
@@ -27,6 +28,7 @@ export const registerUser = async (
 
     return {
       status: response.data.status,
+      success: response.data.success,
       status_code: response.data.status_code,
       message: response.data.message,
       data: response.data.data,
@@ -34,6 +36,7 @@ export const registerUser = async (
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
+        success: error.response.data.success,
         status_code: error.response.status ?? error.response.data.status_code,
         message: error.response.data.message
           ? error.response.data.message
@@ -41,6 +44,7 @@ export const registerUser = async (
       };
     } else {
       return {
+        success: false,
         status_code: 500,
         message: "An unexpected error occured.",
       };
