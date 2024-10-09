@@ -25,10 +25,11 @@ import { FaCheck } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 
 type SqlResultProps = {
+  isLoading?: boolean;
   query: Query;
 };
 
-const SageResultsDialog = ({ query }: SqlResultProps) => {
+const SageResultsDialog = ({ query, isLoading }: SqlResultProps) => {
   const parseCsvData = useCallback((csvData: string) => {
     const lines = csvData.split("\n");
     const headers = lines[0].split(",");
@@ -83,7 +84,11 @@ const SageResultsDialog = ({ query }: SqlResultProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <CustomButton variant="ghost" className="p-1 m-0 h-full text-primary">
+        <CustomButton
+          variant="ghost"
+          className="p-1 m-0 h-full text-primary"
+          isDisabled={isLoading}
+        >
           Results
         </CustomButton>
       </DialogTrigger>
