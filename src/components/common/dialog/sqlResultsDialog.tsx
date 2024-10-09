@@ -15,10 +15,12 @@ import {
 } from ".";
 
 type SqlProps = {
+  success: boolean;
+  isLoading?: boolean;
   sql: string;
 };
 
-const SqlResultsDialog = ({ sql }: SqlProps) => {
+const SqlResultsDialog = ({ sql, success, isLoading }: SqlProps) => {
   const { toast } = useToast();
 
   const copyToClipboard = useCallback(
@@ -54,7 +56,11 @@ const SqlResultsDialog = ({ sql }: SqlProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <CustomButton variant="ghost" className="p-1 m-0 h-full text-green-500">
+        <CustomButton
+          variant="ghost"
+          className="p-1 m-0 h-full text-green-500"
+          isDisabled={isLoading || !success}
+        >
           SQL
         </CustomButton>
       </DialogTrigger>
