@@ -36,6 +36,7 @@ export interface ErrorResponse {
 export interface ApiResponse {
   status?: string;
   status_code: number;
+  success: boolean;
   message: string;
   data?: unknown;
 }
