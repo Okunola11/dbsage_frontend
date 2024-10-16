@@ -113,7 +113,9 @@ const SageResultsDialog = ({ query, isLoading }: SqlResultProps) => {
           </DialogHeader>
           <div className="mt-4">
             <h3 className="font-bold">Prompt:</h3>
-            <p className="text-sm">{query.prompt}</p>
+            <p className="text-sm whitespace-pre-wrap overflow-wrap-break-word break-words">
+              {query.prompt}
+            </p>
             <h3 className="font-bold mt-6">Status:</h3>
             <p>{query.success}</p>
 
