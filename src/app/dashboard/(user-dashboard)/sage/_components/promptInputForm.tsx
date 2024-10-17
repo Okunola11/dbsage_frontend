@@ -1,17 +1,17 @@
+"use client";
+
+import React, { useTransition, Dispatch, SetStateAction } from "react";
+
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/common/input";
+import { Form } from "@/components/ui/form";
 import { Translator } from "@/types";
 import { PromptSchema } from "@/schemas";
+import FormIntegratedInput from "./formWithInput";
+import { getSql } from "@/actions/prompt";
+import { SqlResult, Query } from "../page";
+import { useToast } from "@/hooks/use-toast";
 
 interface InputProps {
   t: Translator;
@@ -24,34 +24,77 @@ interface InputProps {
     any,
     undefined
   >;
-  onSubmit: (values: z.infer<typeof PromptSchema>) => void;
+  setQueries: Dispatch<SetStateAction<Query[]>>;
 }
 
-const PromptInputForm = ({ t, form, onSubmit }: InputProps) => {
+const PromptInputForm = ({ t, form, setQueries }: InputProps) => {
+  const [isPending, startTransition] = useTransition();
+
+  const { toast } = useToast();
+
+  const onSubmit = (values: z.infer<typeof PromptSchema>) => {
+    const newQuery = {
+      prompt: values.prompt,
+      success: false,
+      results: {} as SqlResult,
+      timestamp: Date.now(),
+      isLoading: true,
+    };
+
+    setQueries((prevQueries) => [newQuery, ...prevQueries]);
+
+    startTransition(async () => {
+      await getSql(values).then(async (data) => {
+        if (data.status_code === 200) {
+          const results = data.data as SqlResult;
+          setQueries((prevQueries) =>
+            prevQueries.map((q, index) =>
+              index === 0
+                ? {
+                    ...q,
+                    success: data.success,
+                    results: results,
+                    isLoading: false,
+                  }
+                : q
+            )
+          );
+
+          toast({
+            title: "Success",
+            description: data.message,
+          });
+        } else {
+          setQueries((prevQueries) =>
+            prevQueries.map((q, index) =>
+              index === 0
+                ? {
+                    ...q,
+                    error: data.message,
+                    isLoading: false,
+                  }
+                : q
+            )
+          );
+          toast({
+            title: "An error occurred",
+            description: data.message,
+            variant: "destructive",
+          });
+        }
+      });
+    });
+
+    form.reset();
+  };
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 min-w-[280px] md:min-w-[500px]"
+        className="space-y-6 w-[340px] md:w-[500px] xl:w-[650px]"
       >
-        <FormField
-          control={form.control}
-          name="prompt"
-          render={({ field }) => (
-            <FormItem>
-              {/* <FormLabel className="text-neutral-dark-2">Prompt</FormLabel> */}
-              <FormControl>
-                <Input
-                  // type="search"
-                  placeholder={t("promptPlaceholder")}
-                  {...field}
-                  className="focus:outline-none rounded border-primary border-t-0 border-x-0 transition duration-150 ease-in-out text-foreground focus-visible:ring-transparent focus-visible:border-b-2"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormIntegratedInput t={t} form={form} onSubmit={onSubmit} />
       </form>
     </Form>
   );
