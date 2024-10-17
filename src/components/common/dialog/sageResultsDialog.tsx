@@ -127,7 +127,10 @@ const SageResultsDialog = ({ query, isLoading }: SqlResultProps) => {
                 </div>
               </div>
             ) : (
-              <p className="text-red-500 text-sm">{query.error}</p>
+              <div className="w-full mt-4">
+                <h3 className="font-bold">Error:</h3>
+                <p className="text-red-500 text-sm">{query.error}</p>
+              </div>
             )}
           </div>
         </div>
