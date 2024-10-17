@@ -116,8 +116,6 @@ const SageResultsDialog = ({ query, isLoading }: SqlResultProps) => {
             <p className="text-sm whitespace-pre-wrap overflow-wrap-break-word break-words">
               {query.prompt}
             </p>
-            <h3 className="font-bold mt-6">Status:</h3>
-            <p>{query.success}</p>
 
             {query.success ? (
               <div className="w-full">
