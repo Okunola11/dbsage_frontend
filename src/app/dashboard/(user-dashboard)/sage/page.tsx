@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { useToast } from "@/hooks/use-toast";
 import * as z from "zod";
 
 import { PromptSchema } from "@/schemas";
@@ -13,7 +12,6 @@ import { useDatabaseContext } from "@/context/databaseContext";
 import MatchingTables from "./_components/matchingTables";
 import PromptInputForm from "./_components/promptInputForm";
 import QueriesList from "./_components/queriesList";
-import { getSql } from "@/actions/prompt";
 
 export type SqlResult = {
   prompt: string;
@@ -32,12 +30,10 @@ export type Query = {
 };
 
 const Sage = () => {
-  const [isPending, startTransition] = useTransition();
   const [queries, setQueries] = useState<Query[]>([]);
   const [matchingTables, setMatchingTables] = useState<string[]>([]);
   const t = useTranslations("dbSage.dashboard");
 
-  const { toast } = useToast();
   const { tables } = useDatabaseContext();
   const tableNames = tables.map((table) => table.table_name);
 
@@ -47,63 +43,6 @@ const Sage = () => {
       prompt: "",
     },
   });
-
-  const onSubmit = (values: z.infer<typeof PromptSchema>) => {
-    const newQuery = {
-      prompt: values.prompt,
-      success: false,
-      results: {} as SqlResult,
-      timestamp: Date.now(),
-      isLoading: true,
-    };
-
-    setQueries((prevQueries) => [newQuery, ...prevQueries]);
-
-    // Submit the prompt to the backend
-    startTransition(async () => {
-      await getSql(values).then(async (data) => {
-        if (data.status_code === 200) {
-          const results = data.data as SqlResult;
-          setQueries((prevQueries) =>
-            prevQueries.map((q, index) =>
-              index === 0
-                ? {
-                    ...q,
-                    success: data.success,
-                    results: results,
-                    isLoading: false,
-                  }
-                : q
-            )
-          );
-
-          toast({
-            title: "Success",
-            description: data.message,
-          });
-        } else {
-          setQueries((prevQueries) =>
-            prevQueries.map((q, index) =>
-              index === 0
-                ? {
-                    ...q,
-                    error: data.message,
-                    isLoading: false,
-                  }
-                : q
-            )
-          );
-          toast({
-            title: "An error occurred",
-            description: data.message,
-            variant: "destructive",
-          });
-        }
-      });
-    });
-
-    form.reset();
-  };
 
   const handleDownload = (query: Query) => {
     const blob = new Blob([query.results.csv_data], {
@@ -134,11 +73,11 @@ const Sage = () => {
         <DatabaseDialog />
       </div>
 
-      <div className="flex-1 pl-4 flex flex-col items-center justify-center mt-20">
+      <div className="flex-1 md:pl-4 flex flex-col items-center justify-center mt-20">
         <div>
           <MatchingTables matchingTables={matchingTables} />
 
-          <PromptInputForm t={t} form={form} onSubmit={onSubmit} />
+          <PromptInputForm t={t} form={form} setQueries={setQueries} />
         </div>
 
         <QueriesList queries={queries} handleDownload={handleDownload} />
