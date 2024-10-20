@@ -7,6 +7,8 @@ import { User } from "@/types";
 export const {
   handlers: { GET, POST },
   auth,
+  signIn,
+  signOut,
   unstable_update,
 } = NextAuth({ ...authConfig });
 
