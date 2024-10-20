@@ -63,3 +63,7 @@ export type Translator = {
   ): string;
   raw(TargetKey: unknown): unknown;
 };
+
+export interface CustomAuthError extends Error {
+  customMessage: string;
+}
