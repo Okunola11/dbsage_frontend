@@ -24,12 +24,16 @@ export interface User extends User {
 }
 
 export interface AuthResponse {
-  data: User;
-  access_token: string;
+  status_code: number;
+  success: boolean;
+  message: string;
+  data?: User;
+  access_token?: string;
 }
 
 export interface ErrorResponse {
-  status_code?: number;
+  status_code: number;
+  success: boolean;
   message: string;
 }
 
