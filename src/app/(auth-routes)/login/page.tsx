@@ -3,7 +3,7 @@
 import { useState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-nprogress-bar";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +15,7 @@ import { LoginSchema } from "@/schemas";
 import GoogleLogin from "./_components/googleLogin";
 import FormLogin from "./_components/formLogin";
 import TermsOfService from "./_components/termsOfService";
+import { credSignIn } from "@/actions/authSignIn";
 
 const Login = () => {
   const t = useTranslations("login");
@@ -45,30 +46,34 @@ const Login = () => {
 
     try {
       startTransition(async () => {
-        const result = await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        });
+        const result = await credSignIn({ email, password });
 
-        if (result?.ok) {
-          router.push("/dashboard");
+        if (!result.success) {
           toast({
-            title: "Login success",
-            description: "Redirecting",
+            title: "Error",
+            description: result.error,
+            variant: "destructive",
           });
-        } else {
-          toast({
-            title: "An error occured",
-            description: result?.error || "Unknown error",
-          });
+          return;
         }
+
+        if (result.data?.error) {
+          toast({
+            title: "Error",
+            description: result.data.error,
+            variant: "destructive",
+          });
+          return;
+        }
+
+        router.push("/dashboard");
       });
     } catch (error) {
       toast({
         title: "Login failed",
         description:
-          (error as Error).message || "An error occured during login.",
+          (error as Error).message || "An error occurred during login.",
+        variant: "destructive",
       });
     }
   };
