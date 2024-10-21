@@ -7,6 +7,7 @@ import Twitter from "next-auth/providers/twitter";
 import { LoginSchema } from "@/schemas";
 import { CustomJWT, User } from "@/types";
 import { credentialsAuth, googleAuth, twitterAuth } from "@/actions/userAuth";
+import { CustomAuthError } from "@/types";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
@@ -28,29 +29,22 @@ export default {
       clientSecret: process.env.TWITTER_CLIENT_SECRET!,
     }),
     Credentials({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text", placeholder: "email" },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "password",
-        },
-        rememberMe: { label: "Remember Me", type: "checkbox" },
-      },
       async authorize(credentials) {
         const validatedFields = LoginSchema.safeParse(credentials);
+
         if (!validatedFields.success) {
-          // eslint-disable-next-line unicorn/no-null
-          return null;
+          const error = new Error("Invalid credentials") as CustomAuthError;
+          error.customMessage = "Invalid credentials";
+          throw error;
         }
 
         const { email, password, rememberMe } = validatedFields.data;
         const response = await credentialsAuth({ email, password, rememberMe });
 
-        if (!response || !("data" in response)) {
-          // eslint-disable-next-line unicorn/no-null
-          return null;
+        if (!response || !response.success) {
+          const error = new Error(response.message) as CustomAuthError;
+          error.customMessage = response.message;
+          throw error;
         }
 
         const user = response.data as User;
@@ -88,7 +82,7 @@ export default {
         }
 
         token = response.data as CustomJWT;
-        token.accss_token = response.access_token;
+        token.access_token = response.access_token;
         return token;
       }
 
