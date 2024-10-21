@@ -4,7 +4,7 @@ import axios from "axios";
 import * as z from "zod";
 
 import { LoginSchema } from "@/schemas";
-import { AuthResponse, ErrorResponse } from "@/types";
+import { AuthResponse } from "@/types";
 import { apiUrl } from "@/utils/settings.env";
 
 const credentialsAuth = async (
@@ -83,31 +83,35 @@ const googleAuth = async (idToken: string): Promise<AuthResponse> => {
   }
 };
 
-const twitterAuth = async (
-  access_token: string
-): Promise<AuthResponse | ErrorResponse> => {
+const twitterAuth = async (access_token: string): Promise<AuthResponse> => {
   try {
     const response = await axios.post(`${apiUrl}/api/v1/auth/twitter`, {
       access_token: access_token,
     });
 
     return {
+      status_code: response.data.status_code,
+      success: response.data.success,
+      message: response.data.message,
       data: response.data.user,
       access_token: response.data.access_token,
     };
   } catch (error) {
-    return {
-      status_code:
-        axios.isAxiosError(error) && error.response
-          ? error.response.status
-          : undefined,
-      message:
-        axios.isAxiosError(error) &&
-        error.response &&
-        error.response.data.message
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        success: error.response.data.success,
+        status_code: error.response.status ?? error.response.data.status_code,
+        message: error.response.data.message
           ? error.response.data.message
           : "Something went wrong.",
-    };
+      };
+    } else {
+      return {
+        success: false,
+        status_code: 500,
+        message: "An unexpected error occured.",
+      };
+    }
   }
 };
 
