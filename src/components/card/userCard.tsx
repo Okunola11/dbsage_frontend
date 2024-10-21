@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useCurrentSession } from "@/hooks/useCurrentSession";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -20,14 +21,14 @@ const handleLogout = async () => {
 };
 
 const UserCard = () => {
-  const { data: session, status } = useSession();
+  const { session, status } = useCurrentSession();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex items-center rounded-full p-1 hover:bg-subtle"
+          className="flex items-center rounded-full p-1 hover:bg-subtle dark:hover:bg-primary/20"
           disabled={status === "loading"}
         >
           {status === "loading" && (
@@ -36,11 +37,11 @@ const UserCard = () => {
           {status === "authenticated" && (
             <Avatar className="size-8 sm:size-10">
               <AvatarImage
-                src={`${session.user.image}?t=${Date.now()}`}
+                src={`${session?.user.image}?t=${Date.now()}`}
                 alt="User Avatar"
               />
-              <AvatarFallback className="bg-primary/30 uppercase">
-                {session.user?.first_name?.charAt(0)}
+              <AvatarFallback className="bg-primary/50 uppercase">
+                {session?.user?.first_name?.charAt(0)}
               </AvatarFallback>
             </Avatar>
           )}
