@@ -36,7 +36,7 @@ export default function DashboardTools() {
             <div className="hover:bg-neutral-200 hover:dark:bg-slate-800/[0.8] p-2 inline-block rounded-3xl overflow-hidden">
               <Link
                 className="border border-[hsl(210% 100% 50%)] hover:border-border rounded-2xl inline-block p-4 bg-background shadow"
-                href="/dashboard"
+                href="/dashboard/sage"
               >
                 <div className="relative">
                   <h4 className="dark:text-zinc-100 text-zinc-800 font-bold tracking-wide mt-4">
