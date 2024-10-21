@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,10 +13,11 @@ import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "./links";
 import MobileNav from "./mobile-navbar";
 import PreferenceButton from "./preference-button";
+import { useCurrentSession } from "@/hooks/useCurrentSession";
 
 const Navbar = () => {
   const [scrolling, setIsScrolling] = useState<boolean>(false);
-  const { status } = useSession();
+  const { status } = useCurrentSession();
   const pathname = usePathname();
   const t = useTranslations();
 
