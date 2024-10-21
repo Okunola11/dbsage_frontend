@@ -1,14 +1,14 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useCurrentSession } from "@/hooks/useCurrentSession";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 import Navbar from "@/components/layouts/navbar";
 import { poppins } from "@/app/fonts/fonts";
 
-export default async function DashboardTools() {
-  const { data: session } = useSession();
+export default function DashboardTools() {
+  const { session } = useCurrentSession();
   const t = useTranslations("dashboard");
 
   return (
