@@ -9,11 +9,12 @@ import { apiUrl } from "@/utils/settings.env";
 
 const credentialsAuth = async (
   values: z.infer<typeof LoginSchema>
-): Promise<AuthResponse | ErrorResponse> => {
+): Promise<AuthResponse> => {
   const validatedFields = LoginSchema.safeParse(values);
   if (!validatedFields.success) {
     return {
       status_code: 401,
+      success: false,
       message: "Something went wrong",
     };
   }
@@ -25,50 +26,60 @@ const credentialsAuth = async (
     const response = await axios.post(`${apiUrl}/api/v1/auth/login`, payload);
 
     return {
-      data: response.data.user,
+      status_code: response.data.status_code,
+      success: response.data.success,
+      message: response.data.message,
+      data: response.data.data,
       access_token: response.data.access_token,
     };
   } catch (error) {
-    return {
-      status_code:
-        axios.isAxiosError(error) && error.response
-          ? error.response.status
-          : undefined,
-      message:
-        axios.isAxiosError(error) &&
-        error.response &&
-        error.response.data.message
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        success: error.response.data.success,
+        status_code: error.response.status ?? error.response.data.status_code,
+        message: error.response.data.message
           ? error.response.data.message
-          : "Something went wrong",
-    };
+          : "Something went wrong.",
+      };
+    } else {
+      return {
+        success: false,
+        status_code: 500,
+        message: "An unexpected error occured.",
+      };
+    }
   }
 };
 
-const googleAuth = async (
-  idToken: string
-): Promise<AuthResponse | ErrorResponse> => {
+const googleAuth = async (idToken: string): Promise<AuthResponse> => {
   try {
     const response = await axios.post(`${apiUrl}/api/v1/auth/google`, {
       id_token: idToken,
     });
 
     return {
+      status_code: response.data.status_code,
+      success: response.data.success,
+      message: response.data.message,
       data: response.data.user,
       access_token: response.data.access_token,
     };
   } catch (error) {
-    return {
-      status_code:
-        axios.isAxiosError(error) && error.response
-          ? error.response.status
-          : undefined,
-      message:
-        axios.isAxiosError(error) &&
-        error.response &&
-        error.response.data.message
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        success: error.response.data.success,
+        status_code: error.response.status ?? error.response.data.status_code,
+        message: error.response.data.message
           ? error.response.data.message
           : "Something went wrong.",
-    };
+      };
+    } else {
+      return {
+        success: false,
+        status_code: 500,
+        message: "An unexpected error occured.",
+      };
+    }
   }
 };
 
