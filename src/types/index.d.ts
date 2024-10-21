@@ -21,6 +21,10 @@ export interface User extends User {
   image?: string;
   avatar_url?: string;
   access_token?: string;
+  is_active?: boolean;
+  is_verified?: boolean;
+  is_superadmin?: boolean;
+  created_at?: string;
 }
 
 export interface AuthResponse {
