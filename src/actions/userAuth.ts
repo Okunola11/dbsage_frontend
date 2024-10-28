@@ -6,6 +6,7 @@ import * as z from "zod";
 import { LoginSchema } from "@/schemas";
 import { AuthResponse } from "@/types";
 import { apiUrl } from "@/utils/settings.env";
+import { tokenManager } from "@/lib/tokenManager";
 
 const credentialsAuth = async (
   values: z.infer<typeof LoginSchema>
@@ -23,15 +24,19 @@ const credentialsAuth = async (
 
   const payload = { email, password };
   try {
-    const response = await axios.post(`${apiUrl}/api/v1/auth/login`, payload);
+    const response = await axios.post<AuthResponse>(
+      "/api/v1/auth/login",
+      payload
+    );
 
-    return {
-      status_code: response.data.status_code,
-      success: response.data.success,
-      message: response.data.message,
-      data: response.data.data,
-      access_token: response.data.access_token,
-    };
+    const result = response.data;
+
+    if (result.success) {
+      const cookieHeader = response.headers["set-cookie"];
+      tokenManager.setToken(cookieHeader);
+    }
+
+    return result;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
