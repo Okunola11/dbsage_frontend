@@ -10,6 +10,7 @@ export interface CustomJWT extends JWT {
   last_name?: string;
   fullname?: string;
   access_token?: string;
+  token_expiry?: number;
 }
 
 export interface User extends User {
@@ -25,6 +26,7 @@ export interface User extends User {
   is_verified?: boolean;
   is_superadmin?: boolean;
   created_at?: string;
+  token_expiry?: number;
 }
 
 export interface AuthResponse {
