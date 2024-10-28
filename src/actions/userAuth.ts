@@ -25,7 +25,7 @@ const credentialsAuth = async (
   const payload = { email, password };
   try {
     const response = await axios.post<AuthResponse>(
-      "/api/v1/auth/login",
+      `${apiUrl}/api/v1/auth/login`,
       payload
     );
 
