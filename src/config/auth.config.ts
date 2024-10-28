@@ -8,6 +8,8 @@ import { LoginSchema } from "@/schemas";
 import { CustomJWT, User } from "@/types";
 import { credentialsAuth, googleAuth, twitterAuth } from "@/actions/userAuth";
 import { CustomAuthError } from "@/types";
+import { refreshAccessToken } from "@/actions/refresh";
+import { tokenManager } from "@/lib/tokenManager";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
@@ -48,13 +50,17 @@ export default {
         }
 
         const user = response.data as User;
+
         user.access_token = response.access_token;
+        user.token_expiry =
+          new Date().getTime() + (response.expires_in ?? 0) * 1000;
         return user;
       },
     }),
   ],
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days - this controls the NextAuth session lifetime
   },
   debug: isDevelopment,
   callbacks: {
@@ -70,6 +76,8 @@ export default {
       return !!user;
     },
     async jwt({ token, user, account }) {
+      const customToken = token as CustomJWT;
+
       if (account?.provider == "google") {
         if (!account.id_token) {
           return token;
@@ -81,9 +89,10 @@ export default {
           return token;
         }
 
-        token = response.data as CustomJWT;
-        token.access_token = response.access_token;
-        return token;
+        customToken.access_token = response.access_token;
+        customToken.token_expiry =
+          new Date().getTime() + (response.expires_in ?? 0) * 1000; // Add expiry time
+        return customToken;
       }
 
       if (account?.provider == "twitter") {
@@ -97,15 +106,45 @@ export default {
           return token;
         }
 
-        token = response.data as CustomJWT;
-        token.access_token = response.access_token;
-        return token;
+        customToken.access_token = response.access_token;
+        customToken.token_expiry =
+          new Date().getTime() + (response.expires_in ?? 0) * 1000; // Add expiry time
+        return customToken;
       }
 
-      return {
-        ...token,
-        ...user,
-      } as CustomJWT;
+      if (user) {
+        return {
+          ...token,
+          ...user,
+        } as CustomJWT;
+      }
+
+      // Check if access token needs refresh
+      if (customToken.token_expiry && Date.now() >= customToken.token_expiry) {
+        console.log("==== REFRESHING FROM JWT ====");
+        try {
+          console.log(
+            "\n\nJWT callback executing at:",
+            new Date().toISOString(),
+            "\n\n"
+          );
+          const response = await refreshAccessToken();
+
+          if (response.success) {
+            customToken.access_token = response.access_token;
+            customToken.token_expiry =
+              new Date().getTime() + (response.expires_in ?? 0) * 1000;
+
+            return customToken;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          return null;
+        }
+      }
+
+      return customToken;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
       const customToken = token as CustomJWT;
@@ -135,6 +174,12 @@ export default {
       session.access_token = customToken.access_token;
 
       return session;
+    },
+  },
+  events: {
+    signOut: async () => {
+      tokenManager.clearToken();
+      global.tokenRefreshCache = {};
     },
   },
   pages: {
