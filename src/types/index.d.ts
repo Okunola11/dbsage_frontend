@@ -35,6 +35,7 @@ export interface AuthResponse {
   message: string;
   data?: User;
   access_token?: string;
+  expires_in?: number;
 }
 
 export interface ErrorResponse {
