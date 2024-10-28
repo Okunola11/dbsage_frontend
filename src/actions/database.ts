@@ -6,6 +6,9 @@ import * as z from "zod";
 import { dbConfigSchema } from "@/schemas";
 import { apiUrl } from "@/utils/settings.env";
 import { ApiResponse } from "@/types";
+import { redirect } from "next/navigation";
+
+import apiClient from "@/lib/apiClient";
 
 export const connectDatabase = async (
   values: z.infer<typeof dbConfigSchema>
@@ -25,10 +28,7 @@ export const connectDatabase = async (
   const payload = { db_url: db_url };
 
   try {
-    const response = await axios.post(
-      `${apiUrl}/api/v1/database/connect`,
-      payload
-    );
+    const response = await apiClient.post("/api/v1/database/connect", payload);
 
     return {
       status: response.data.status,
