@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function GeneralLayout({
   children,
@@ -8,7 +9,7 @@ export default async function GeneralLayout({
   const session = await auth();
 
   if (!session) {
-    return;
+    redirect("/login");
   }
 
   return children;
