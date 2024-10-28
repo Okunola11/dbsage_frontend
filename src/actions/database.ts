@@ -38,6 +38,9 @@ export const connectDatabase = async (
       data: response.data.data,
     };
   } catch (error) {
+    if ((error as Error).message === "AuthenticationError") {
+      redirect("/login");
+    }
     if (axios.isAxiosError(error) && error.response) {
       return {
         success: error.response.data.success,
