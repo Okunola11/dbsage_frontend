@@ -61,7 +61,7 @@ export const connectDatabase = async (
 
 export const closeDatabaseConnection = async (): Promise<ApiResponse> => {
   try {
-    const response = await axios.post(`${apiUrl}/api/v1/database/close`);
+    const response = await apiClient.post("/api/v1/database/close");
 
     return {
       status: response.data.status,
@@ -71,6 +71,9 @@ export const closeDatabaseConnection = async (): Promise<ApiResponse> => {
       data: response.data.data,
     };
   } catch (error) {
+    if ((error as Error).message === "AuthenticationError") {
+      redirect("/login");
+    }
     if (axios.isAxiosError(error) && error.response) {
       return {
         success: error.response.data.success,
