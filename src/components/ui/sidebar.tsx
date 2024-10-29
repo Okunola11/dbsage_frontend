@@ -93,7 +93,7 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          "h-full p-2 hidden md:flex md:flex-col max-w-[150px] flex-shrink-0 overflow-hidden hide_scrollbar",
+          "h-full p-2 hidden md:flex md:flex-col max-w-[180px] flex-shrink-0 overflow-hidden hide_scrollbar",
           className
         )}
         animate={{
@@ -109,7 +109,7 @@ export const DesktopSidebar = ({
             icon={<TbTableShortcut />}
             isLeftIconVisible={true}
             variant="ghost"
-            className="text-xs p-2 shadow-sm mb-2 shadow-primary/90 min-w-[120px] hidden md:flex"
+            className="text-xs p-2 shadow-sm mb-2 shadow-primary/90 min-w-[150px] hidden md:flex"
             onClick={() => setOpen(!open)}
           >
             {t("tables")}
@@ -171,38 +171,31 @@ export const MobileSidebar = ({
 
 export const SidebarTable = ({
   table,
+  openColumns,
   className,
 }: {
+  openColumns: boolean;
   table: Tables;
   className?: string;
 }) => {
   const { open, animate } = useSidebar();
-  const [openTables, setOPenTables] = useState(false);
 
   return (
     <div className={cn("flex flex-col", className)}>
-      <div
-        className="text-xs "
-        onMouseEnter={() => setOPenTables(true)}
-        onMouseLeave={() => setOPenTables(false)}
-      >
-        {table.table_name}
-      </div>
+      <div className="text-sm">{table.table_name}</div>
       <motion.div
         animate={{
           display: animate
-            ? openTables
+            ? openColumns
               ? "inline-block"
               : "none"
             : "inline-block",
-          opacity: animate ? (openTables ? 1 : 0) : 1,
+          opacity: animate ? (openColumns ? 1 : 0) : 1,
         }}
         className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
-        onMouseEnter={() => setOPenTables(true)}
-        onMouseLeave={() => setOPenTables(false)}
       >
         {table.columns.map((column, idx) => (
-          <li key={idx} className="list-none pl-4 text-xs">
+          <li key={idx} className="list-disc pl-4 text-xs">
             {column}
           </li>
         ))}
