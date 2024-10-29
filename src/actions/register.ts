@@ -21,18 +21,14 @@ export const registerUser = async (
   }
 
   try {
-    const response = await axios.post(
+    const response = await axios.post<ApiResponse>(
       `${apiUrl}/api/v1/auth/register`,
       validatedFields.data
     );
 
-    return {
-      status: response.data.status,
-      success: response.data.success,
-      status_code: response.data.status_code,
-      message: response.data.message,
-      data: response.data.data,
-    };
+    const result = response.data;
+
+    return result;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {

@@ -25,15 +25,14 @@ export const verifyAccount = async ({
   const payload = { email: email, token: token };
 
   try {
-    const response = await axios.post(`${apiUrl}/api/v1/auth/verify`, payload);
+    const response = await axios.post<ApiResponse>(
+      `${apiUrl}/api/v1/auth/verify`,
+      payload
+    );
 
-    return {
-      status: response.data.status,
-      success: response.data.success,
-      status_code: response.data.status_code,
-      message: response.data.message,
-      data: response.data.data,
-    };
+    const result = response.data;
+
+    return result;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
