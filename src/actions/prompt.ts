@@ -2,9 +2,10 @@
 
 import axios from "axios";
 import * as z from "zod";
+import { redirect } from "next/navigation";
 
 import { PromptSchema } from "@/schemas";
-import { apiUrl } from "@/utils/settings.env";
+import apiClient from "@/lib/apiClient";
 import { ApiResponse } from "@/types";
 
 export const getSql = async (
@@ -21,8 +22,8 @@ export const getSql = async (
   }
 
   try {
-    const response = await axios.post(
-      `${apiUrl}/api/v1/prompt`,
+    const response = await apiClient.post(
+      "/api/v1/prompt",
       validatedFields.data
     );
 
@@ -34,6 +35,9 @@ export const getSql = async (
       data: response.data.data,
     };
   } catch (error) {
+    if ((error as Error).message === "AuthenticationError") {
+      redirect("/login");
+    }
     if (axios.isAxiosError(error) && error.response) {
       return {
         success: error.response.data.success,
