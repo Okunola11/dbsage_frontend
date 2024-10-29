@@ -22,18 +22,14 @@ export const getSql = async (
   }
 
   try {
-    const response = await apiClient.post(
+    const response = await apiClient.post<ApiResponse>(
       "/api/v1/prompt",
       validatedFields.data
     );
 
-    return {
-      status: response.data.status,
-      success: response.data.success,
-      status_code: response.data.status_code,
-      message: response.data.message,
-      data: response.data.data,
-    };
+    const result = response.data;
+
+    return result;
   } catch (error) {
     if ((error as Error).message === "AuthenticationError") {
       redirect("/login");
