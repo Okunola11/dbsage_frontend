@@ -28,15 +28,14 @@ export const connectDatabase = async (
   const payload = { db_url: db_url };
 
   try {
-    const response = await apiClient.post("/api/v1/database/connect", payload);
+    const response = await apiClient.post<ApiResponse>(
+      "/api/v1/database/connect",
+      payload
+    );
 
-    return {
-      status: response.data.status,
-      success: response.data.success,
-      status_code: response.data.status_code,
-      message: response.data.message,
-      data: response.data.data,
-    };
+    const result = response.data;
+
+    return result;
   } catch (error) {
     if ((error as Error).message === "AuthenticationError") {
       redirect("/login");
@@ -61,15 +60,13 @@ export const connectDatabase = async (
 
 export const closeDatabaseConnection = async (): Promise<ApiResponse> => {
   try {
-    const response = await apiClient.post("/api/v1/database/close");
+    const response = await apiClient.post<ApiResponse>(
+      "/api/v1/database/close"
+    );
 
-    return {
-      status: response.data.status,
-      success: response.data.success,
-      status_code: response.data.status_code,
-      message: response.data.message,
-      data: response.data.data,
-    };
+    const result = response.data;
+
+    return result;
   } catch (error) {
     if ((error as Error).message === "AuthenticationError") {
       redirect("/login");
