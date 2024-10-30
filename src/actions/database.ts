@@ -118,3 +118,34 @@ export const getDatabaseTables = async (): Promise<ApiResponse> => {
     }
   }
 };
+
+export const getDatabaseConnection = async (): Promise<ApiResponse> => {
+  try {
+    const response = await apiClient.get<ApiResponse>(
+      "/api/v1/database/status"
+    );
+
+    const result = response.data;
+
+    return result;
+  } catch (error) {
+    if ((error as Error).message === "AuthenticationError") {
+      redirect("/login");
+    }
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        success: error.response.data.success,
+        status_code: error.response.status ?? error.response.data.status_code,
+        message: error.response.data.message
+          ? error.response.data.message
+          : "Something went wrong.",
+      };
+    } else {
+      return {
+        success: false,
+        status_code: 500,
+        message: "An unexpected error occured.",
+      };
+    }
+  }
+};
