@@ -69,7 +69,7 @@ const SqlResultsDialog = ({ sql, success, isLoading }: SqlProps) => {
         <DialogHeader>
           <DialogTitle>Generated SQL</DialogTitle>
         </DialogHeader>
-        <div className="mt-4">
+        <div className="mt-4 overflow-x-auto">
           <FormattedSql sql={sql} />
           <CustomButton
             icon={<LuClipboardCopy />}
