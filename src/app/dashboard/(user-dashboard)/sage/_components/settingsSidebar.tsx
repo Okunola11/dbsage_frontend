@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarTable } from "@/components/ui/sidebar";
 import { lora } from "@/app/fonts/fonts";
 import { cn } from "@/lib/utils";
-import DatabaseDialog from "@/components/common/dialog/databaseDialog";
+import DatabaseConnectionDialog from "@/components/common/dialog/databaseStatusDialog";
 import { useDatabaseContext } from "@/context/databaseContext";
 import { SwitchTables } from "@/components/ui/switch";
 
@@ -37,7 +37,9 @@ const SettingsSidebar = () => {
               </div>
             </div>
 
-            <DatabaseDialog />
+            <div className="flex w-full justify-center md:hidden">
+              <DatabaseConnectionDialog />
+            </div>
           </div>
         </SidebarBody>
       </Sidebar>
