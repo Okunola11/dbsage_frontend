@@ -211,25 +211,29 @@ const DatabaseConnectionDialog = () => {
             )}
           </DialogDescription>
 
-          <DialogFooter className="">
-            {connectionStatus.has_connection ? (
-              <div className="flex items-center justify-center">
-                <CustomButton
-                  variant="ghost"
-                  className="bg-red-500 text-white"
-                  onClick={onLogout}
-                  isDisabled={isPending}
-                >
-                  {isPending ? (
-                    <span className="flex items-center gap-x-2">
-                      <span className="animate-pulse">Closing...</span>{" "}
-                      <LoadingSpinner className="size-4 animate-spin sm:size-5" />
-                    </span>
-                  ) : (
-                    <span>Close Connection</span>
-                  )}
-                </CustomButton>
-              </div>
+          <DialogFooter>
+            {connectionStatus ? (
+              connectionStatus.has_connection ? (
+                <div className="flex items-center justify-center">
+                  <CustomButton
+                    variant="ghost"
+                    className="bg-red-500 text-white"
+                    onClick={onLogout}
+                    isDisabled={isPending}
+                  >
+                    {isPending ? (
+                      <span className="flex items-center gap-x-2">
+                        <span className="animate-pulse">Closing...</span>{" "}
+                        <LoadingSpinner className="size-4 animate-spin sm:size-5" />
+                      </span>
+                    ) : (
+                      <span>Close Connection</span>
+                    )}
+                  </CustomButton>
+                </div>
+              ) : (
+                <DatabaseDialog />
+              )
             ) : (
               <DatabaseDialog />
             )}
