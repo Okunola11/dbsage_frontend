@@ -58,17 +58,16 @@ const credentialsAuth = async (
 
 const googleAuth = async (idToken: string): Promise<AuthResponse> => {
   try {
-    const response = await axios.post(`${apiUrl}/api/v1/auth/google`, {
-      id_token: idToken,
-    });
+    const response = await axios.post<AuthResponse>(
+      `${apiUrl}/api/v1/auth/google`,
+      {
+        id_token: idToken,
+      }
+    );
 
-    return {
-      status_code: response.data.status_code,
-      success: response.data.success,
-      message: response.data.message,
-      data: response.data.user,
-      access_token: response.data.access_token,
-    };
+    const result = response.data;
+
+    return result;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
@@ -90,17 +89,16 @@ const googleAuth = async (idToken: string): Promise<AuthResponse> => {
 
 const twitterAuth = async (access_token: string): Promise<AuthResponse> => {
   try {
-    const response = await axios.post(`${apiUrl}/api/v1/auth/twitter`, {
-      access_token: access_token,
-    });
+    const response = await axios.post<AuthResponse>(
+      `${apiUrl}/api/v1/auth/twitter`,
+      {
+        access_token: access_token,
+      }
+    );
 
-    return {
-      status_code: response.data.status_code,
-      success: response.data.success,
-      message: response.data.message,
-      data: response.data.user,
-      access_token: response.data.access_token,
-    };
+    const result = response.data;
+
+    return result;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
