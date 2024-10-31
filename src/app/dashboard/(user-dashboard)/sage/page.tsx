@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import * as z from "zod";
 
 import { PromptSchema } from "@/schemas";
-import DatabaseDialog from "@/components/common/dialog/databaseDialog";
+import DatabaseConnectionDialog from "@/components/common/dialog/databaseStatusDialog";
 import { useDatabaseContext } from "@/context/databaseContext";
 import MatchingTables from "./_components/matchingTables";
 import PromptInputForm from "./_components/promptInputForm";
@@ -70,7 +70,7 @@ const Sage = () => {
   return (
     <div className="flex flex-col">
       <div className="hidden md:flex justify-end items-center min-h-[50px]">
-        <DatabaseDialog />
+        <DatabaseConnectionDialog />
       </div>
 
       <div className="flex-1 md:pl-4 flex flex-col items-center justify-center mt-20">
