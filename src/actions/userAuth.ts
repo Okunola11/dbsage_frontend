@@ -67,6 +67,11 @@ const googleAuth = async (idToken: string): Promise<AuthResponse> => {
 
     const result = response.data;
 
+    if (result.success) {
+      const cookieHeader = response.headers["set-cookie"];
+      tokenManager.setToken(cookieHeader);
+    }
+
     return result;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
