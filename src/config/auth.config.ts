@@ -138,9 +138,11 @@ export default {
 
             return customToken;
           } else {
+            // eslint-disable-next-line unicorn/no-null
             return null;
           }
         } catch (error) {
+          // eslint-disable-next-line unicorn/no-null
           return null;
         }
       }
