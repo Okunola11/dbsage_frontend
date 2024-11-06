@@ -65,7 +65,7 @@ const Sage = () => {
       lowercasePrompt.includes(tableName.toLowerCase())
     );
     setMatchingTables(matches);
-  }, [prompt]);
+  }, [prompt, tableNames]);
 
   return (
     <div className="flex flex-col">
