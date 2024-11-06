@@ -17,6 +17,7 @@ interface TokenStore {
 }
 
 declare global {
+  // eslint-disable-next-line no-var
   var tokenStore: TokenStore;
 }
 
