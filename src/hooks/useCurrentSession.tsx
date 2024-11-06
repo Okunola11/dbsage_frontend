@@ -7,12 +7,15 @@ import { useState, useEffect, useCallback } from "react";
 
 // This hook doesn't rely on the session provider
 export const useCurrentSession = () => {
+  // eslint-disable-next-line unicorn/no-null
   const [session, setSession] = useState<Session | null>(null);
   // Changed the default status to loading
   const [status, setStatus] = useState<string>("loading");
   const pathName = usePathname();
 
   const retrieveSession = useCallback(async () => {
+    if (typeof window === "undefined") return;
+
     try {
       const sessionData = await getSession();
       if (sessionData) {
@@ -24,6 +27,7 @@ export const useCurrentSession = () => {
       setStatus("unauthenticated");
     } catch (error) {
       setStatus("unauthenticated");
+      // eslint-disable-next-line unicorn/no-null
       setSession(null);
     }
   }, []);
