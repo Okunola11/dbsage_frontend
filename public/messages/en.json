@@ -6,7 +6,8 @@
   "navLinks": {
     "home": "Home",
     "pricing": "Pricing",
-    "careers": "Careers"
+    "careers": "Careers",
+    "development": "Development"
   },
   "login": {
     "title": "Login",
