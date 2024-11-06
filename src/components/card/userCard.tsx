@@ -71,12 +71,6 @@ const UserCard = () => {
               <DropdownMenuShortcut>⇧O</DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
-          <Link href={"/dashboard/admin/settings"} passHref legacyBehavior>
-            <DropdownMenuItem className="cursor-pointer">
-              <span className="font-medium">Settings</span>
-              <DropdownMenuShortcut>⇧G</DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </Link>
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
