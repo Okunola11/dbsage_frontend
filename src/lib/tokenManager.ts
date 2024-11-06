@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-null */
+
 import { cookies } from "next/headers";
 
 type CookieOptions = {
