@@ -14,7 +14,7 @@ const GoogleLogin: React.FC<LoginProps> = ({ t }) => {
       <CustomButton
         variant="outline"
         isLeftIconVisible={true}
-        onClick={() => signIn("google", { callbackUrl: "/" })}
+        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
         icon={googleIcon}
       >
         {t("continueWithGoogle")}
