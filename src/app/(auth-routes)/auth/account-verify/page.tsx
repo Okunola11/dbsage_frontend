@@ -114,6 +114,7 @@ const AccountVerification = () => {
           </div>
         );
       default:
+        // eslint-disable-next-line unicorn/no-null
         return null;
     }
   };
