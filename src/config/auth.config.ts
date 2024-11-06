@@ -89,10 +89,11 @@ export default {
           return token;
         }
 
-        customToken.access_token = response.access_token;
-        customToken.token_expiry =
+        token = response.data as CustomJWT;
+        token.access_token = response.access_token;
+        token.token_expiry =
           new Date().getTime() + (response.expires_in ?? 0) * 1000; // Add expiry time
-        return customToken;
+        return token;
       }
 
       if (account?.provider == "twitter") {
