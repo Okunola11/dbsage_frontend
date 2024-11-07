@@ -30,6 +30,6 @@ export const socialLinks = [
 ];
 
 export const footerBottomLinks = [
-  { route: "privacyPolicy", link: "/privacy-policy" },
-  { route: "termsOfUse", link: "/terms-and-conditions" },
+  { route: "privacyPolicy", link: "/" },
+  { route: "termsOfUse", link: "/" },
 ];
