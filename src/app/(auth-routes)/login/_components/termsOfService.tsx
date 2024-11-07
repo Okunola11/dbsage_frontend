@@ -10,7 +10,7 @@ const TermsOfService: React.FC<LoginProps> = ({ t }) => {
       {t("agree")}{" "}
       <Link
         target="_blank"
-        href="/terms-and-conditions"
+        href="/"
         className="text-sm font-bold text-primary hover:text-primary/80"
       >
         {t("termsOfService")}
@@ -18,7 +18,7 @@ const TermsOfService: React.FC<LoginProps> = ({ t }) => {
       {t("and")}{" "}
       <Link
         target="_blank"
-        href="/privacy-policy"
+        href="/"
         className="text-sm font-bold text-primary hover:text-primary/80"
       >
         {t("privacyPolicy")}
