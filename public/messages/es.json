@@ -6,7 +6,8 @@
   "navLinks": {
     "home": "Inicio",
     "pricing": "Precios",
-    "careers": "Carreras"
+    "careers": "Carreras",
+     "development": "Desarrollo"
   },
   "login": {
     "title": "Iniciar sesión",

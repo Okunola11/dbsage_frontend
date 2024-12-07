@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { poppins } from "@/app/fonts/fonts";
 
 import { Button } from "../ui/button";
 
@@ -25,7 +28,9 @@ const FlagButton = ({ selectedLanguage, flagPath, onClick }: Props) => {
         height={15}
         className="block md:hidden"
       />
-      <div className="ml-2 text-base md:text-lg uppercase text-primary">
+      <div
+        className={`${poppins.className} ml-2 text-base md:text-lg uppercase text-primary`}
+      >
         {selectedLanguage}
       </div>
     </Button>

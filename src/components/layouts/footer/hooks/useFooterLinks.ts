@@ -8,28 +8,28 @@ const useFooterLinks = () => {
       title: t("navigation"),
       links: [
         { route: "home", link: "/" },
-        { route: "aboutUs", link: "/about-us" },
+        { route: "aboutUs", link: "/" },
         // { route: "career", link: "/career" },
         { route: "features", link: "/" },
-        { route: "blog", link: "/blog" },
+        { route: "blog", link: "/" },
         // { route: "status", link: "/status" },
       ],
     },
     {
       title: t("support"),
       links: [
-        { route: "helpCenter", link: "/help-center" },
-        { route: "faq", link: "/faqs" },
+        { route: "helpCenter", link: "/" },
+        { route: "faq", link: "/" },
         // { route: "waitingList", link: "/waitlist" },
         // { route: "pricingExperience", link: "/pricing" },
-        { route: "contactUs", link: "/contact-us" },
+        { route: "contactUs", link: "/" },
       ],
     },
     {
       title: t("legal"),
       links: [
-        { route: "privacyPolicy", link: "/privacy-policy" },
-        { route: "termsAndConditions", link: "/terms-and-conditions" },
+        { route: "privacyPolicy", link: "/" },
+        { route: "termsAndConditions", link: "/" },
       ],
     },
   ];
