@@ -2,7 +2,10 @@
 
 import axios from "axios";
 import { apiUrl } from "@/utils/settings.env";
-import { auth } from "./auth";
+import { getCurrentSession } from "@/actions/userSession";
+import { deleteCurrentSession } from "@/actions/userSession";
+import { updateCurrentSession } from "@/actions/userSession";
+import { refreshTokens } from "@/actions/refreshTokens";
 
 const apiClient = axios.create({
   baseURL: apiUrl,
@@ -11,7 +14,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   async (config) => {
-    const session = await auth();
+    const session = await getCurrentSession();
 
     if (session?.access_token) {
       config.headers.Authorization = `Bearer ${session.access_token}`;
@@ -32,18 +35,25 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const session = await auth();
+      // Call refresh endpoint
+      const refreshResult = await refreshTokens();
 
-      if (!session?.access_token) {
-        throw new Error("AuthenticationError");
+      if (refreshResult.success) {
+        const updateData = {
+          access_token: refreshResult.access_token,
+          token_expiry:
+            new Date().getTime() + (refreshResult.expires_in ?? 0) * 1000,
+        };
+        await updateCurrentSession(updateData);
+
+        const newSession = await getCurrentSession();
+
+        if (newSession?.access_token) {
+          return apiClient(originalRequest);
+        }
       }
 
-      const newSession = await auth();
-
-      if (newSession?.access_token) {
-        originalRequest.headers.Authorization = `Bearer ${newSession.access_token}`;
-        return apiClient(originalRequest);
-      }
+      return await deleteCurrentSession();
     }
 
     return Promise.reject(error);
