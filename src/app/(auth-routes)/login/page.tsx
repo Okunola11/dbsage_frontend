@@ -3,7 +3,6 @@
 import { useState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-nprogress-bar";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,13 +14,14 @@ import { LoginSchema } from "@/schemas";
 import GoogleLogin from "./_components/googleLogin";
 import FormLogin from "./_components/formLogin";
 import TermsOfService from "./_components/termsOfService";
-import { credSignIn } from "@/actions/authSignIn";
+import { loginUser } from "@/actions/login";
+import { useCurrentSession } from "@/hooks/useCurrentSession";
 
 const Login = () => {
   const t = useTranslations("login");
   const router = useRouter();
   const { toast } = useToast();
-  const { status } = useSession();
+  const { status } = useCurrentSession();
 
   const [isLoading, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
@@ -42,29 +42,23 @@ const Login = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    const { email, password } = values;
-
     try {
       startTransition(async () => {
-        const result = await credSignIn({ email, password });
+        const result = await loginUser(values);
 
         if (!result.success) {
           toast({
             title: "Error",
-            description: result.error,
+            description: result.message,
             variant: "destructive",
           });
           return;
         }
 
-        if (result.data?.error) {
-          toast({
-            title: "Error",
-            description: result.data.error,
-            variant: "destructive",
-          });
-          return;
-        }
+        toast({
+          title: "Success",
+          description: "Login successful",
+        });
 
         router.push("/dashboard");
       });
