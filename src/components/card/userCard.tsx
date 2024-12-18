@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
+import { deleteCurrentSession } from "@/actions/userSession";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -17,7 +17,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const handleLogout = async () => {
-  await signOut({ callbackUrl: "/" });
+  await deleteCurrentSession();
 };
 
 const UserCard = () => {
@@ -36,12 +36,9 @@ const UserCard = () => {
           )}
           {status === "authenticated" && (
             <Avatar className="size-8 sm:size-10">
-              <AvatarImage
-                src={`${session?.user.image}?t=${Date.now()}`}
-                alt="User Avatar"
-              />
+              <AvatarImage src={session?.avatar_url} alt="User Avatar" />
               <AvatarFallback className="bg-primary/50 uppercase">
-                {session?.user?.first_name?.charAt(0)}
+                {session?.first_name?.charAt(0)}
               </AvatarFallback>
             </Avatar>
           )}
@@ -56,10 +53,10 @@ const UserCard = () => {
 
       <DropdownMenuContent className="mr-1 w-56" align="end">
         <DropdownMenuLabel className="pb-0 pt-3">
-          {session?.user?.first_name} {session?.user?.last_name}
+          {session?.first_name} {session?.last_name}
         </DropdownMenuLabel>
         <span className="block px-2 pb-1 text-xs text-neutral-dark-1">
-          {session?.user?.email ?? "Signed In"}
+          {session?.email ?? "Signed In"}
         </span>
 
         <DropdownMenuSeparator />

@@ -1,30 +1,28 @@
 "use server";
 
 import axios from "axios";
-import * as z from "zod";
 
-import { PromptSchema } from "@/schemas";
-import apiClient from "@/lib/apiClient";
-import { ApiResponse } from "@/types";
+import { apiUrl } from "@/utils/settings.env";
+import { AuthResponse } from "@/types";
+import { cookies } from "next/headers";
+import setCookies from "./login";
 
-export const getSql = async (
-  values: z.infer<typeof PromptSchema>
-): Promise<ApiResponse> => {
-  const validatedFields = PromptSchema.safeParse(values);
-
-  if (!validatedFields.success) {
-    return {
-      success: false,
-      status_code: 401,
-      message: "Something went wrong",
-    };
-  }
-
+export const refreshTokens = async (): Promise<AuthResponse> => {
   try {
-    const response = await apiClient.post<ApiResponse>(
-      "/api/v1/prompt",
-      validatedFields.data
+    const response = await axios.post<AuthResponse>(
+      `${apiUrl}/api/v1/auth/refresh`,
+      {},
+      {
+        headers: {
+          Cookie: `refresh_token=${cookies().get("refresh_token")?.value}`,
+        },
+      }
     );
+
+    const setCookieHeader = response.headers["set-cookie"];
+    if (setCookieHeader) {
+      await setCookies(setCookieHeader);
+    }
 
     const result = response.data;
 

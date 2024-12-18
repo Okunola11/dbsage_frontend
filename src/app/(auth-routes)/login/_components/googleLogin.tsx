@@ -1,7 +1,6 @@
-import { signIn } from "next-auth/react";
-
 import { googleIcon } from "./icon";
 import CustomButton from "@/components/common/button/commonButton";
+import { apiUrl } from "@/utils/settings.env";
 import { Translator } from "@/types";
 
 export type LoginProps = {
@@ -9,12 +8,17 @@ export type LoginProps = {
 };
 
 const GoogleLogin: React.FC<LoginProps> = ({ t }) => {
+  const handleGoogleLogin = () => {
+    // Redirect to backend Google OAuth endpoint
+    window.location.href = `http://localhost:7002/api/v1/auth/google`;
+  };
+
   return (
     <div className="flex flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0">
       <CustomButton
         variant="outline"
         isLeftIconVisible={true}
-        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        onClick={handleGoogleLogin}
         icon={googleIcon}
       >
         {t("continueWithGoogle")}

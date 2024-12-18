@@ -7,7 +7,6 @@ import { getLocale, getMessages } from "next-intl/server";
 import Providers from "@/components/providers";
 import { Toaster } from "@/components/ui/toaster";
 import { inter } from "./fonts/fonts";
-import AuthProvider from "@/context/authContext";
 
 export const metadata: Metadata = {
   title: "DBSage",
@@ -27,11 +26,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <div className="mx-auto h-full w-full max-w-[1920px]">
           <Providers />
-          <AuthProvider>
-            <NextIntlClientProvider messages={messages}>
-              {children}
-            </NextIntlClientProvider>
-          </AuthProvider>
+          <NextIntlClientProvider messages={messages}>
+            {children}
+          </NextIntlClientProvider>
           <Toaster />
         </div>
       </body>

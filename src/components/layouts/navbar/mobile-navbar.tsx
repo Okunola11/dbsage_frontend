@@ -1,20 +1,19 @@
 import "./menu.css";
 
 import { motion, stagger, useAnimate } from "framer-motion";
-import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "./links";
+import { useCurrentSession } from "@/hooks/useCurrentSession";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
   const [scope, animate] = useAnimate();
   const t = useTranslations();
-  const { data: session } = useSession();
-  const user = session?.user;
+  const { session } = useCurrentSession();
 
   // the stagger effect
   const staggerList = stagger(0.1, { startDelay: 0.25 });
@@ -27,7 +26,7 @@ export default function MobileNav() {
       "ul",
       {
         width: open ? 180 : 0,
-        height: open && user?.email ? 140 : open ? 250 : 0,
+        height: open && session?.email ? 140 : open ? 250 : 0,
         opacity: open ? 1 : 0,
       },
       {
@@ -46,7 +45,7 @@ export default function MobileNav() {
         delay: open ? staggerList : 0,
       }
     );
-  }, [animate, open, staggerList, user?.email]);
+  }, [animate, open, staggerList, session?.email]);
 
   return (
     <>
@@ -110,7 +109,7 @@ export default function MobileNav() {
               href="/login"
               className={cn(
                 "grid max-w-[100px] place-items-center whitespace-nowrap rounded-md border border-primary px-2 py-2 text-sm text-primary",
-                user?.email ? "hidden" : ""
+                session?.email ? "hidden" : ""
               )}
             >
               {t("navbar.login")}
@@ -122,7 +121,7 @@ export default function MobileNav() {
               href="/register"
               className={cn(
                 "grid max-w-[100px] place-items-center whitespace-nowrap rounded-md border border-primary bg-primary px-2 py-2 text-sm text-white",
-                user?.email ? "hidden" : ""
+                session?.email ? "hidden" : ""
               )}
             >
               {t("navbar.register")}

@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-nprogress-bar";
 import { useState, useEffect, useTransition } from "react";
@@ -15,12 +14,13 @@ import { RegisterSchema } from "@/schemas";
 import GoogleLogin from "../login/_components/googleLogin";
 import RegisterForm from "./_components/registerForm";
 import HasAccount from "./_components/hasAccount";
+import { useCurrentSession } from "@/hooks/useCurrentSession";
 
 const Register = () => {
   const t = useTranslations("register");
   const router = useRouter();
   const { toast } = useToast();
-  const { status } = useSession();
+  const { status } = useCurrentSession();
   const [isLoading, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
 

@@ -1,15 +1,13 @@
 "use client";
 
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
+import { User } from "@/types";
+import { getCurrentSession } from "@/actions/userSession";
 
-// This hook doesn't rely on the session provider
 export const useCurrentSession = () => {
   // eslint-disable-next-line unicorn/no-null
-  const [session, setSession] = useState<Session | null>(null);
-  // Changed the default status to loading
+  const [session, setSession] = useState<User | null>(null);
   const [status, setStatus] = useState<string>("loading");
   const pathName = usePathname();
 
@@ -17,9 +15,9 @@ export const useCurrentSession = () => {
     if (typeof window === "undefined") return;
 
     try {
-      const sessionData = await getSession();
-      if (sessionData) {
-        setSession(sessionData);
+      const user = await getCurrentSession();
+      if (user) {
+        setSession(user);
         setStatus("authenticated");
         return;
       }
@@ -40,6 +38,7 @@ export const useCurrentSession = () => {
 
     // use the pathname to force a re-render when the user navigates to a new page
   }, [retrieveSession, session, pathName]);
+  console.log(status);
 
   return { session, status };
 };
