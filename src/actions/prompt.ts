@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import * as z from "zod";
-import { redirect } from "next/navigation";
 
 import { PromptSchema } from "@/schemas";
 import apiClient from "@/lib/apiClient";
@@ -31,9 +30,6 @@ export const getSql = async (
 
     return result;
   } catch (error) {
-    if ((error as Error).message === "AuthenticationError") {
-      redirect("/login");
-    }
     if (axios.isAxiosError(error) && error.response) {
       return {
         success: error.response.data.success,
