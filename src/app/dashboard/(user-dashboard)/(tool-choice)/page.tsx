@@ -6,15 +6,10 @@ import Link from "next/link";
 
 import Navbar from "@/components/layouts/navbar";
 import { poppins } from "@/app/fonts/fonts";
-import SplashScreen from "@/components/miscellaneous/splashScreen";
 
 export default function DashboardTools() {
   const { session, status } = useCurrentSession();
   const t = useTranslations("dashboard");
-
-  if (status === "loading") {
-    return <SplashScreen />;
-  }
 
   return (
     <>
@@ -27,7 +22,7 @@ export default function DashboardTools() {
           <h2 className="text-3xl md:text-5xl font-bold leading-none tracking-tight mb-6">
             {t("intro.hi")},{" "}
             <span className={`${poppins.className} uppercase text-primary`}>
-              {session?.user.last_name}
+              {session?.last_name}
             </span>{" "}
             {t("intro.welcome")}.
           </h2>
