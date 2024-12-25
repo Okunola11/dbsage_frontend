@@ -111,6 +111,7 @@ export default async function setCookies(setCookieHeader: string[]) {
   setCookieHeader
     .filter((cookie) => cookie)
     .forEach((cookie) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [cookieRaw, ..._] = cookie.split("; ");
       const [cookieName, ...cookieAttributes] = cookieRaw.split("=");
       cookieStore.set(cookieName, cookieAttributes.join("="), {
