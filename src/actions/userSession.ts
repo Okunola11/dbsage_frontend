@@ -43,6 +43,7 @@ export async function getCurrentSession() {
   const cookieStore = cookies();
   const userSessionCookie = cookieStore.get("user_session");
 
+  // eslint-disable-next-line unicorn/no-null
   if (!userSessionCookie) return null;
 
   try {
@@ -60,6 +61,7 @@ export async function getCurrentSession() {
 
     return session;
   } catch (error) {
+    // eslint-disable-next-line unicorn/no-null
     return null;
   }
 }
@@ -69,6 +71,7 @@ export async function deleteCurrentSession() {
   const cookieStore = cookies();
   const userSessionCookie = cookieStore.get("user_session");
 
+  // eslint-disable-next-line unicorn/no-null
   if (!userSessionCookie) return null;
 
   cookieStore.delete("user_session");

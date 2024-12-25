@@ -28,6 +28,7 @@ interface InputProps {
 }
 
 const PromptInputForm = ({ t, form, setQueries }: InputProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPending, startTransition] = useTransition();
 
   const { toast } = useToast();

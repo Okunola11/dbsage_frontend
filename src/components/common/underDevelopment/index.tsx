@@ -15,7 +15,7 @@ const UnderDevelopment = () => {
           </h1>
 
           <p className="text-gray-600 dark:text-gray-300">
-            We're working hard to bring you something amazing! This page is
+            We&apos;re working hard to bring you something amazing! This page is
             currently under construction and will be available soon.
           </p>
 

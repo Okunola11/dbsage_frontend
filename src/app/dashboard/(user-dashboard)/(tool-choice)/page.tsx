@@ -6,10 +6,15 @@ import Link from "next/link";
 
 import Navbar from "@/components/layouts/navbar";
 import { poppins } from "@/app/fonts/fonts";
+import SplashScreen from "@/components/miscellaneous/splashScreen";
 
 export default function DashboardTools() {
   const { session, status } = useCurrentSession();
   const t = useTranslations("dashboard");
+
+  if (status === "loading") {
+    return <SplashScreen />;
+  }
 
   return (
     <>

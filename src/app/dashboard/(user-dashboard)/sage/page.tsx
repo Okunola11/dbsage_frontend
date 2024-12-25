@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import * as z from "zod";
@@ -35,7 +35,10 @@ const Sage = () => {
   const t = useTranslations("dbSage.dashboard");
 
   const { tables } = useDatabaseContext();
-  const tableNames = tables.map((table) => table.table_name);
+  const tableNames = useMemo(
+    () => tables.map((table) => table.table_name),
+    [tables]
+  );
 
   const form = useForm<z.infer<typeof PromptSchema>>({
     resolver: zodResolver(PromptSchema),

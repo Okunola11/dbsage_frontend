@@ -178,6 +178,7 @@ export const SidebarTable = ({
   table: Tables;
   className?: string;
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { open, animate } = useSidebar();
 
   return (

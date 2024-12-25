@@ -10,7 +10,7 @@ export type LoginProps = {
 const GoogleLogin: React.FC<LoginProps> = ({ t }) => {
   const handleGoogleLogin = () => {
     // Redirect to backend Google OAuth endpoint
-    window.location.href = `http://localhost:7002/api/v1/auth/google`;
+    window.location.href = `${apiUrl}/api/v1/auth/google`;
   };
 
   return (
