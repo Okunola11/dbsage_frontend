@@ -33,7 +33,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const DatabaseDialog = () => {
+const DatabaseDialog = ({
+  handleStatusDialogClose,
+}: {
+  handleStatusDialogClose: () => void;
+}) => {
   const t = useTranslations("dbSage.database");
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, startTransition] = useTransition();
@@ -53,10 +57,11 @@ const DatabaseDialog = () => {
     resolver: zodResolver(dbConfigSchema),
     defaultValues: {
       host: "",
+      database_type: "postgresql",
       port: 5432,
       username: "",
       password: "",
-      database: "",
+      database_name: "",
     },
   });
 
@@ -80,6 +85,7 @@ const DatabaseDialog = () => {
       });
       setActiveAction("");
       handleDialogClose();
+      handleStatusDialogClose();
     });
   };
 
@@ -103,6 +109,7 @@ const DatabaseDialog = () => {
       });
       setActiveAction("");
       handleDialogClose();
+      handleStatusDialogClose();
     });
   };
 
@@ -152,6 +159,30 @@ const DatabaseDialog = () => {
                           className={cn(
                             "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
                             form.formState.errors.host && "border-destructive"
+                          )}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="database_type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-neutral-dark-2">
+                        {t("type.label")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder={t("type.placeholder")}
+                          {...field}
+                          className={cn(
+                            "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
+                            form.formState.errors.database_type &&
+                              "border-destructive"
                           )}
                         />
                       </FormControl>
@@ -234,7 +265,7 @@ const DatabaseDialog = () => {
 
                 <FormField
                   control={form.control}
-                  name="database"
+                  name="database_name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-neutral-dark-2">
@@ -246,7 +277,7 @@ const DatabaseDialog = () => {
                           {...field}
                           className={cn(
                             "w-full rounded-md border px-3 py-5 text-sm leading-[21.78px] transition duration-150 ease-in-out focus:outline-none",
-                            form.formState.errors.database &&
+                            form.formState.errors.database_name &&
                               "border-destructive"
                           )}
                         />
