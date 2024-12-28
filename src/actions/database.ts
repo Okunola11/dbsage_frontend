@@ -22,14 +22,10 @@ export const connectDatabase = async (
     };
   }
 
-  const data = validatedFields.data;
-  const db_url = `postgresql://${data.username}:${data.password}@${data.host}:${data.port}/${data.database}`;
-  const payload = { db_url: db_url };
-
   try {
     const response = await apiClient.post<ApiResponse>(
       "/api/v1/database/connect",
-      payload
+      validatedFields.data
     );
 
     const result = response.data;
