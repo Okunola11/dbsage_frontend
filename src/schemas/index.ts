@@ -60,6 +60,7 @@ export const PromptSchema = z.object({
 
 export const dbConfigSchema = z.object({
   host: z.string().min(1, { message: "Host or socket is required." }),
+  database_type: z.string().min(1, { message: "Database port is required." }),
   port: z
     .number()
     .int()
@@ -67,5 +68,5 @@ export const dbConfigSchema = z.object({
     .max(65535),
   username: z.string().min(1, { message: "Username is required." }),
   password: z.string().min(1, { message: "Password is required." }),
-  database: z.string().min(1, { message: "Database name is required." }),
+  database_name: z.string().min(1, { message: "Database name is required." }),
 });
