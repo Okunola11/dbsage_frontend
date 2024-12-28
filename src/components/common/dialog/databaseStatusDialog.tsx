@@ -19,9 +19,17 @@ import CustomButton from "../button/commonButton";
 import { useDatabaseContext } from "@/context/databaseContext";
 import LoadingSpinner from "@/components/miscellaneous/loadingSpinner";
 
+type DatabaseData = {
+  host: string;
+  database_type: string;
+  username: string;
+  database_name: string;
+  port: number;
+};
+
 type ConnectionData = {
   has_connection?: boolean;
-  db_url?: string;
+  data?: DatabaseData;
   last_used?: Date | null;
   connection_age?: string | null;
 };
@@ -76,7 +84,7 @@ const DatabaseConnectionDialog = () => {
           });
         }
       });
-      handleDialogClose();
+      handleStatusDialogClose();
     });
   };
 
@@ -86,41 +94,8 @@ const DatabaseConnectionDialog = () => {
     await fetchConnectionStatus();
   };
 
-  const handleDialogClose = () => {
+  const handleStatusDialogClose = () => {
     setIsOpen(false);
-  };
-
-  const parseDatabaseUrl = (url: string | undefined) => {
-    try {
-      if (url) {
-        const [dbType, rest] = url.split("://");
-        const [credentials, hostPart] = rest.split("@");
-        const username = credentials.split(":")[0];
-        const [hostWithPort, dbName] = hostPart.split("/");
-        const host = hostWithPort.split(":")[0];
-
-        return {
-          type: dbType,
-          host: host,
-          database: dbName,
-          username: username,
-        };
-      } else {
-        return {
-          type: "N/A",
-          host: "N/A",
-          database: "N/A",
-          username: "N/A",
-        };
-      }
-    } catch (error) {
-      return {
-        type: "Unknown",
-        host: "Unknown",
-        database: "Unknown",
-        username: "Unknown",
-      };
-    }
   };
 
   return (
@@ -133,7 +108,7 @@ const DatabaseConnectionDialog = () => {
         Database
       </CustomButton>
 
-      <Dialog open={isOpen} onOpenChange={handleDialogClose}>
+      <Dialog open={isOpen} onOpenChange={handleStatusDialogClose}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Database Connection Status</DialogTitle>
@@ -161,28 +136,34 @@ const DatabaseConnectionDialog = () => {
                 </div>
 
                 {(() => {
-                  const dbDetails = parseDatabaseUrl(connectionStatus.db_url);
+                  const dbDetails = connectionStatus.data;
                   return (
                     <>
                       <div>
                         <span className="font-medium text-gray-600">Type:</span>{" "}
-                        <span className="capitalize">{dbDetails.type}</span>
+                        <span className="capitalize">
+                          {dbDetails?.database_type ?? "N/A"}
+                        </span>
                       </div>
                       <div>
                         <span className="font-medium text-gray-600">Host:</span>{" "}
-                        {dbDetails.host}
+                        {dbDetails?.host ?? "N/A"}
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-600">Port:</span>{" "}
+                        {dbDetails?.port ?? "N/A"}
                       </div>
                       <div>
                         <span className="font-medium text-gray-600">
                           Database:
                         </span>{" "}
-                        {dbDetails.database}
+                        {dbDetails?.database_name ?? "N/A"}
                       </div>
                       <div>
                         <span className="font-medium text-gray-600">
                           Username:
                         </span>{" "}
-                        {dbDetails.username}
+                        {dbDetails?.username ?? "N/A"}
                       </div>
                       <div>
                         <span className="font-medium text-gray-600">
@@ -232,10 +213,14 @@ const DatabaseConnectionDialog = () => {
                   </CustomButton>
                 </div>
               ) : (
-                <DatabaseDialog />
+                <DatabaseDialog
+                  handleStatusDialogClose={handleStatusDialogClose}
+                />
               )
             ) : (
-              <DatabaseDialog />
+              <DatabaseDialog
+                handleStatusDialogClose={handleStatusDialogClose}
+              />
             )}
           </DialogFooter>
         </DialogContent>
