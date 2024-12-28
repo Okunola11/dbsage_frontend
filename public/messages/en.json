@@ -128,6 +128,10 @@
         "label": "Host/Socket",
         "placeholder": "database host"
       },
+      "type": {
+        "label": "Type",
+        "placeholder": "type"
+      },
       "port": {
         "label": "Port",
         "placeholder": "database port"

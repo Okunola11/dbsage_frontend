@@ -129,6 +129,10 @@
         "label": "Hôte/Socket",
         "placeholder": "hôte de base de données"
       },
+      "type": {
+        "label": "Taper",
+        "placeholder": "taper"
+      },
       "port": {
         "label": "Port",
         "placeholder": "port de base de données"

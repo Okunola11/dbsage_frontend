@@ -129,6 +129,10 @@
         "label": "Anfitrión/Socket",
         "placeholder": "host de base de datos"
       },
+      "type": {
+        "label": "Tipo",
+        "placeholder": "tipo"
+      },
       "port": {
         "label": "Puerto",
         "placeholder": "puerto de base de datos"
